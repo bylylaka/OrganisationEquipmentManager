@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1022
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docvision.Server", "Docvision.Server\Docvision.Server.csproj", "{C6932BD2-B3C5-44F0-8C61-3FDC5BFF5EE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Docvision.Server.WebApi", "Docvision.Server\Docvision.Server.WebApi.csproj", "{C6932BD2-B3C5-44F0-8C61-3FDC5BFF5EE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docvision.Server.Infrastructure", "Docvision.Server.Infrastructure\Docvision.Server.Infrastructure.csproj", "{90F0F648-136E-4D81-BD41-369129516DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docvision.Server.Domain", "Docvision.Server.Domain\Docvision.Server.Domain.csproj", "{B6BE0BDD-84C1-42B9-9E5A-13EB0AE2E5D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{C6932BD2-B3C5-44F0-8C61-3FDC5BFF5EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6932BD2-B3C5-44F0-8C61-3FDC5BFF5EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6932BD2-B3C5-44F0-8C61-3FDC5BFF5EE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F0F648-136E-4D81-BD41-369129516DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F0F648-136E-4D81-BD41-369129516DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F0F648-136E-4D81-BD41-369129516DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F0F648-136E-4D81-BD41-369129516DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6BE0BDD-84C1-42B9-9E5A-13EB0AE2E5D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6BE0BDD-84C1-42B9-9E5A-13EB0AE2E5D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6BE0BDD-84C1-42B9-9E5A-13EB0AE2E5D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6BE0BDD-84C1-42B9-9E5A-13EB0AE2E5D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

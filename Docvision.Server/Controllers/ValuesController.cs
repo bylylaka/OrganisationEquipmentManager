@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Docvision.Server.Controllers
+﻿namespace Docvision.Server.Controllers.WebApi
 {
-	[Route("api/[controller]")]
+	using Docvision.Server.Infrastructure;
+	using Microsoft.AspNetCore.Mvc;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Threading.Tasks;
+
+	[Route("api/[controller]")] // TODO: REMOVE
 	public class ValuesController : Controller
 	{
+		private ApplicationContext _dbContext;
+
+		public ValuesController(
+			ApplicationContext dbContext)
+		{
+			_dbContext = dbContext;
+		}
+
 		// GET api/values
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<string>> Get()
 		{
+			var a = _dbContext.Buildings.ToList();
 			return new string[] { "value1", "value2" };
 		}
 

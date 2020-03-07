@@ -1,5 +1,3 @@
-#frontend
-
 # dependencies
 /Docvision.Client/node_modules
 .pnp
@@ -23,7 +21,13 @@ yarn-error.log*
 *.dll
 *.exe
 *.pdb
+*.dtbcache
 /build/
+*.sqlite
+*ide
+*ide-shm
+*ide-wal
+*db.lock
 *.suo
 *.user
 _ReSharper.*/

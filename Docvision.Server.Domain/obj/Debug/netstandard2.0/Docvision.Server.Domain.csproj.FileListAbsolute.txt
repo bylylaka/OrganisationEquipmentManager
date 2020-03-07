@@ -1,0 +1,9 @@
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\bin\Debug\netstandard2.0\Docvision.Server.Domain.deps.json
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\bin\Debug\netstandard2.0\Docvision.Server.Domain.dll
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\bin\Debug\netstandard2.0\Docvision.Server.Domain.pdb
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.csprojAssemblyReference.cache
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.AssemblyInfoInputs.cache
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.AssemblyInfo.cs
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.dll
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Domain\obj\Debug\netstandard2.0\Docvision.Server.Domain.pdb

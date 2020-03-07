@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-namespace Docvision.Server
+﻿namespace Docvision.Server.WebApi
 {
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Docvision.Server.Infrastructure;
+	using Microsoft.EntityFrameworkCore;
+	using Docvision.Server.Domain.Services;
+	using Docvision.Server.Infrastructure.Repositories;
+	using AutoMapper;
+
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -20,13 +19,20 @@ namespace Docvision.Server
 
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddAutoMapper(typeof(Startup));
 			services.AddMvc();
+			services.AddCors();
+
+			var connection = Configuration.GetConnectionString("DefaultConnection");
+			services.AddDbContext<ApplicationContext>(options =>
+				options.UseSqlServer(connection));
+
+			services.AddScoped<IOrganisationService, OrganisationService>();
+			services.AddScoped<IOrganisationRepository, OrganisationRepository>();
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -34,6 +40,8 @@ namespace Docvision.Server
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseCors(builder => builder.AllowAnyOrigin());
+			
 			app.UseMvc();
 		}
 	}

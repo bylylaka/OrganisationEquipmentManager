@@ -1,0 +1,6 @@
+const ActionTypes = {
+  // CHANGE_PLACE: "CHANGE_PLACE"
+  SET_ORGANISATION_STRUCTURE: "SET_ORGANISATION_STRUCTURE"
+};
+
+export default ActionTypes;
