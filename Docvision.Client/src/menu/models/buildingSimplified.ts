@@ -1,9 +1,9 @@
-import roomSimplified from "./roomSimplified";
+import RoomSimplified from "./RoomSimplified";
 
-interface buildingSimplified {
+interface BuildingSimplified {
   id: number;
   name: string;
-  rooms: roomSimplified[];
+  rooms: RoomSimplified[];
 }
 
-export default buildingSimplified;
+export default BuildingSimplified;

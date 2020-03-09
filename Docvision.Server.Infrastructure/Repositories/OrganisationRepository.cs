@@ -17,12 +17,9 @@
 			_dbContext = dbContext;
 		}
 
-		public async Task<List<string>> FindEquipmentNames()
+		public async Task<List<Equipment>> FindAllEquipments()
 		{
-			return await _dbContext.Equipment
-				.Select(e => e.Name)
-				.Distinct()
-				.ToListAsync();
+			return await _dbContext.Equipment.ToListAsync();
 		}
 
 		public async Task<List<Building>> FindOrganisationStructure()

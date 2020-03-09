@@ -1,12 +1,15 @@
 import ActionTypes from "../actionTypes/actionTypes";
-import buildingSimplified from "../menu/models/buildingSimplified";
+import BuildingSimplified from "../menu/models/BuildingSimplified";
+import { EquipmentsCountInfo } from "../equipmentEditor/AddEquipmentField/props";
 
 export interface State {
-  organisationStructure: buildingSimplified[];
+  organisationStructure: BuildingSimplified[];
+  equipmentsCountInfo: EquipmentsCountInfo[];
 }
 
 const initialState: State = {
-  organisationStructure: []
+  organisationStructure: [],
+  equipmentsCountInfo: []
 };
 
 export const Reducer = (
@@ -18,6 +21,11 @@ export const Reducer = (
       return {
         ...state,
         organisationStructure: action.structure //TODO: add type
+      };
+    case ActionTypes.SET_EQUIPMENTS_COUNT_INFO:
+      return {
+        ...state,
+        equipmentsCountInfo: action.equipmentsCountInfo //TODO: add type
       };
     default:
       return state;

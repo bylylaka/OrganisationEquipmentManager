@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useCallback } from "react";
 import Axios, { AxiosResponse } from "axios";
-import buildingSimplified from "./models/buildingSimplified";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -10,6 +9,7 @@ import { IMenuProps, IMenuCallProps } from "./props";
 import CheckIcon from "@material-ui/icons/Check";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import BuildingSimplified from "./models/BuildingSimplified";
 
 const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   const { buildingId, roomId, structure, setOrganisationStructure } = props;
@@ -20,7 +20,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
 
   useEffect(() => {
     Axios.get(`${Axios.defaults.baseURL}/organisation/structure`).then(
-      (response: AxiosResponse<buildingSimplified[]>) => {
+      (response: AxiosResponse<BuildingSimplified[]>) => {
         setOrganisationStructure(response.data);
       }
     );
@@ -83,7 +83,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
       );
     });
 
-  const generateRoomsNodes = (building: buildingSimplified) =>
+  const generateRoomsNodes = (building: BuildingSimplified) =>
     building.rooms.map(room => (
       <TreeItem
         nodeId={`${building.id}-${room.id}`}

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { State } from "../reducers/reducer";
 import Actions from "../actions/actions";
-import buildingSimplified from "./models/buildingSimplified";
+import BuildingSimplified from "./models/BuildingSimplified";
 import { IMenuProps, IMenuCallProps } from "./props";
 import Menu from "./Menu";
 import OrganisationNavigation from "../shared/OrganisationNavigation";
@@ -21,7 +21,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: any): IMenuCallProps => {
   return {
-    setOrganisationStructure: (structure: buildingSimplified[]) =>
+    setOrganisationStructure: (structure: BuildingSimplified[]) =>
       dispatch(Actions.setOrganisationStructure(structure))
   };
 };

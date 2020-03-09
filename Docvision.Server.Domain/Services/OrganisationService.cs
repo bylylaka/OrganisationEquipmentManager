@@ -14,9 +14,9 @@ namespace Docvision.Server.Domain.Services
 			_organisationRepository = organisationRepository;
 		}
 
-		public async Task<List<string>> GetEquipmentNames()
+		public async Task<List<Equipment>> GetAllEquipments()
 		{
-			return await _organisationRepository.FindEquipmentNames();
+			return await _organisationRepository.FindAllEquipments();
 		}
 
 		public async Task<List<Building>> GetOrganisationStructure()

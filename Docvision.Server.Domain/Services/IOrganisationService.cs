@@ -8,6 +8,6 @@ namespace Docvision.Server.Domain.Services
 	{
 		Task<List<Building>> GetOrganisationStructure();
 
-		Task<List<string>> GetEquipmentNames();
+		Task<List<Equipment>> GetAllEquipments();
 	}
 }

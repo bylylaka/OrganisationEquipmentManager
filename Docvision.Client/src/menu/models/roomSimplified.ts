@@ -1,7 +1,7 @@
-interface roomSimplified {
+interface RoomSimplified {
   id: number;
   name: string;
   equipmentsCount: number;
 }
 
-export default roomSimplified;
+export default RoomSimplified;

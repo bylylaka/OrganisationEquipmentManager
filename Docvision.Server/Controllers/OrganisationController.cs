@@ -34,11 +34,20 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> EquipmentNames()
+		public async Task<IActionResult> EquipmentsCountInfo()
 		{
-			var equipmentNames = await _organisationService.GetEquipmentNames();
+			var equipments = await _organisationService.GetAllEquipments();
 
-			return Ok(equipmentNames);
+			var equipmentsInfo = equipments
+				.GroupBy(e => e.Name)
+				.Select(e => new EquipmentsCountInfoViewModel()
+				{
+					Name = e.Key,
+					Count = e.Sum(x => x.Count)
+				})
+				.ToList();
+
+			return Ok(equipmentsInfo);
 		}
 	}
 }

@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import AppRouter from "./AppRouter";
 import Axios from "axios";
 import { Provider } from "react-redux";
