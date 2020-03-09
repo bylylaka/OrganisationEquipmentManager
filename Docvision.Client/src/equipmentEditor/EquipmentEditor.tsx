@@ -5,7 +5,13 @@ import AddEquipmentFieldContainer from "./AddEquipmentField/AddEquipmentFieldCon
 const EquipmentEditor: FunctionComponent<IEquipmentEditorProps> = props => {
   const { buildingId, roomId } = props;
 
-  return <AddEquipmentFieldContainer />;
+  return (
+    <>
+      {Boolean(roomId) && (
+        <AddEquipmentFieldContainer roomId={roomId as number} />
+      )}
+    </>
+  );
 };
 
 export default EquipmentEditor;

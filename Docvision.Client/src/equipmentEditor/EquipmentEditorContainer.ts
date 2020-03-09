@@ -2,9 +2,9 @@ import { connect } from "react-redux";
 import { State } from "../reducers/reducer";
 import { IEquipmentEditorProps, IEquipmentEditorCallProps } from "./props";
 import EquipmentEditor from "./EquipmentEditor";
-import OrganisationNavigation from "../shared/OrganisationNavigation";
+import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 
-type ContainerProps = OrganisationNavigation;
+type ContainerProps = IOrganisationNavigationProps;
 
 const mapStateToProps = (
   state: State,

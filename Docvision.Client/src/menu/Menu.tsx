@@ -34,7 +34,8 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   }, []);
 
   const handleSelect = (event: React.ChangeEvent<{}>, nodeId: string) => {
-    history.push(nodeId);
+    let newPath = nodeId.replace("-", "/");
+    history.push(`/${newPath}`);
     setSelected(nodeId);
   };
 

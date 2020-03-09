@@ -1,5 +1,7 @@
 export interface IAddEquipmentFieldProps {
   equipmentsCountInfo: EquipmentsCountInfo[];
+  buildingId?: number;
+  roomId?: number;
 }
 
 export interface IAddEquipmentFieldCallProps {

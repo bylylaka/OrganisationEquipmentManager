@@ -9,5 +9,11 @@ namespace Docvision.Server.Domain.Services
 		Task<List<Building>> FindOrganisationStructure();
 
 		Task<List<Equipment>> FindAllEquipments();
+
+		Task AddEquipment(Equipment equipment);
+
+		Task<Equipment> FindEquipmentByNameAndRoom(string name, int roomId);
+
+		Task<Room> FindRoomById(int id);
 	}
 }

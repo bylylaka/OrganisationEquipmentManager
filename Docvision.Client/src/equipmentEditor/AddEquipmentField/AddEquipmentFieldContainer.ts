@@ -8,14 +8,17 @@ import {
 } from "./props";
 import Actions from "../../actions/actions";
 
-type ContainerProps = {};
+type ContainerProps = {
+  roomId: number;
+};
 
 const mapStateToProps = (
   state: State,
   ownProps: ContainerProps
 ): IAddEquipmentFieldProps => {
   return {
-    equipmentsCountInfo: state.equipmentsCountInfo
+    equipmentsCountInfo: state.equipmentsCountInfo,
+    roomId: ownProps.roomId
   };
 };
 

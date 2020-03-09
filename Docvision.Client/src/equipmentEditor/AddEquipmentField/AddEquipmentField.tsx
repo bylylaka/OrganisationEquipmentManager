@@ -21,10 +21,9 @@ import Typography from "@material-ui/core/Typography";
 
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
-  const { equipmentsCountInfo, setEquipmentsCountInfo } = props;
+  const { equipmentsCountInfo, setEquipmentsCountInfo, roomId } = props;
 
   const [inputValue, setInputValue] = useState("");
-  const [value, setValue] = useState("");
   const [open, toggleOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [dialogValue, setDialogValue] = useState(
@@ -49,11 +48,14 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     event.preventDefault();
     setSubmitting(true);
 
-    // Axios.get(
-    //   `${Axios.defaults.baseURL}/organisation/equipmentsCountInfo`
-    // ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-    //   setEquipmentsCountInfo(response.data);
-    // });
+    Axios.post(
+      `${Axios.defaults.baseURL}/organisation/AddEquipment/${roomId}`,
+      dialogValue
+    ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
+      console.log(response);
+    });
+
+    //TODO: not forgot to add created equipment to select list
 
     setSubmitting(false);
     setInputValue("");
@@ -97,6 +99,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   };
 
   const generateOptions = (): string[] =>
+    //TODO: remove current page equipment
     equipmentsCountInfo.filter(info => info.count > 0).map(info => info.name);
 
   const memoizedGenerateOptions = useCallback(() => generateOptions(), [

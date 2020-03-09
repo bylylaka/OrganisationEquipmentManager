@@ -4,9 +4,9 @@ import Actions from "../actions/actions";
 import BuildingSimplified from "./models/BuildingSimplified";
 import { IMenuProps, IMenuCallProps } from "./props";
 import Menu from "./Menu";
-import OrganisationNavigation from "../shared/OrganisationNavigation";
+import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 
-type ContainerProps = OrganisationNavigation;
+type ContainerProps = IOrganisationNavigationProps;
 
 const mapStateToProps = (
   state: State,

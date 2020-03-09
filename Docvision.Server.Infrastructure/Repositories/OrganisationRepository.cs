@@ -29,5 +29,22 @@
 				.ThenInclude(r => r.Equipments)
 				.ToListAsync();
 		}
+
+		public async Task AddEquipment(Equipment equipment)
+		{
+			await _dbContext.AddAsync(equipment);
+			await _dbContext.SaveChangesAsync();
+		}
+
+		public async Task<Room> FindRoomById(int id)
+		{
+			return await _dbContext.Rooms.FirstOrDefaultAsync(r => r.Id == id);
+		}
+
+		public async Task<Equipment> FindEquipmentByNameAndRoom(string name, int roomId)
+		{
+			return await _dbContext.Equipment
+				.FirstOrDefaultAsync(e => e.RoomId == roomId && e.Name == name);
+		}
 	}
 }

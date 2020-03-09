@@ -1,3 +1,3 @@
-import OrganisationNavigation from "../shared/OrganisationNavigation";
+import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 
-export interface IMainPageProps extends OrganisationNavigation {}
+export interface IMainPageProps extends IOrganisationNavigationProps {}

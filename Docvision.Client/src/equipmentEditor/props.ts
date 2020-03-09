@@ -1,5 +1,5 @@
-import OrganisationNavigation from "../shared/OrganisationNavigation";
+import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 
-export interface IEquipmentEditorProps extends OrganisationNavigation {}
+export interface IEquipmentEditorProps extends IOrganisationNavigationProps {}
 
 export interface IEquipmentEditorCallProps {}

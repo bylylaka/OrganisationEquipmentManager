@@ -1,6 +1,6 @@
-export interface OrganisationNavigation {
+export interface IOrganisationNavigationProps {
   buildingId?: number;
   roomId?: number;
 }
 
-export default OrganisationNavigation;
+export default IOrganisationNavigationProps;

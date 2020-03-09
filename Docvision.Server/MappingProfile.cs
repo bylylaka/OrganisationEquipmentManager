@@ -16,6 +16,8 @@
 			CreateMap<Room, RoomSimplifiedViewModel>()
 				.ForMember(rs => rs.EquipmentsCount,
 				opt => opt.MapFrom(r => r.Equipments.Sum(e => e.Count)));
+
+			CreateMap<EquipmentsCountInfoViewModel, Equipment>();
 		}
 	}
 }
