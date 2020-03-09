@@ -6,16 +6,11 @@ export interface IAddEquipmentFieldCallProps {
   setEquipmentsCountInfo: (info: EquipmentsCountInfo[]) => void;
 }
 
-export class AutocompleteProps {
-  constructor(name: string) {
+export class EquipmentsCountInfo {
+  constructor(name: string, count: number) {
     this.name = name;
+    this.count = count;
   }
-  name: string;
-  count?: number;
-  inputValue?: string;
-}
-
-export interface EquipmentsCountInfo {
   name: string;
   count: number;
 }
