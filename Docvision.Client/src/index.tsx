@@ -5,6 +5,7 @@ import Axios from "axios";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import Reducer from "./reducers/reducer";
+import AppSnackbarContainer from "./shared/AppSnackbar/AppSnackbarContainer";
 
 const Main: FunctionComponent = () => {
   Axios.defaults.baseURL = "http://localhost:55586/api";
@@ -13,6 +14,7 @@ const Main: FunctionComponent = () => {
   return (
     <Provider store={mainStore}>
       <AppRouter />
+      <AppSnackbarContainer />
     </Provider>
   );
 };

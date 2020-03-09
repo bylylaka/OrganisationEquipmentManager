@@ -18,10 +18,16 @@ import Autocomplete, {
 import { FilterOptionsState } from "@material-ui/lab/useAutocomplete";
 import AddEquipmentDialog from "../AddEquipmentDialog/AddEquipmentDialog";
 import Typography from "@material-ui/core/Typography";
+import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
 
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
-  const { equipmentsCountInfo, setEquipmentsCountInfo, roomId } = props;
+  const {
+    equipmentsCountInfo,
+    setEquipmentsCountInfo,
+    roomId,
+    enqueAppSnackbar
+  } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [open, toggleOpen] = useState(false);
@@ -32,11 +38,13 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   const filter = createFilterOptions<string>();
 
   useEffect(() => {
-    Axios.get(
-      `${Axios.defaults.baseURL}/organisation/equipmentsCountInfo`
-    ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-      setEquipmentsCountInfo(response.data);
-    });
+    Axios.get(`${Axios.defaults.baseURL}/organisation/equipmentsCountInfo`)
+      .then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
+        setEquipmentsCountInfo(response.data);
+      })
+      .catch(error => {
+        //TODO: handle error everywhere, AppSnackbar, uuid4
+      });
   }, []);
 
   const handleClose = () => {
@@ -51,11 +59,19 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     Axios.post(
       `${Axios.defaults.baseURL}/organisation/AddEquipment/${roomId}`,
       dialogValue
-    ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-      console.log(response);
-    });
-
-    //TODO: not forgot to add created equipment to select list
+    )
+      .then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
+        var updatedEquipmentsCountInfo = [...equipmentsCountInfo];
+        updatedEquipmentsCountInfo.push(dialogValue);
+        setEquipmentsCountInfo(updatedEquipmentsCountInfo);
+      })
+      .catch(error => {
+        //TODO: СДелать единую обработку
+        let appSnackbarMessage = new AppSnackbarMessage(
+          "Произошло что-то нехорошее. Пожалуйста, повторите попытку."
+        );
+        enqueAppSnackbar(appSnackbarMessage);
+      });
 
     setSubmitting(false);
     setInputValue("");

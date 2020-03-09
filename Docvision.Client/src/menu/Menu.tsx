@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useEffect, useCallback } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useCallback,
+  useState
+} from "react";
 import Axios, { AxiosResponse } from "axios";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
@@ -14,8 +19,8 @@ import BuildingSimplified from "./models/BuildingSimplified";
 const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   const { buildingId, roomId, structure, setOrganisationStructure } = props;
 
-  const [expanded, setExpanded] = React.useState([] as string[]);
-  const [selected, setSelected] = React.useState("");
+  const [expanded, setExpanded] = useState([] as string[]);
+  const [selected, setSelected] = useState("");
   let history = useHistory();
 
   useEffect(() => {
