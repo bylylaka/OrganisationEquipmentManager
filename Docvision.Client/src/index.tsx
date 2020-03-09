@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import AppRouter from "./AppRouter";
 import Axios from "axios";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -13,7 +13,7 @@ const Main: FunctionComponent = () => {
 
   return (
     <Provider store={mainStore}>
-      <App />
+      <AppRouter />
     </Provider>
   );
 };

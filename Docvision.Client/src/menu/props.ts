@@ -8,5 +8,3 @@ export interface IMenuProps extends OrganisationNavigation {
 export interface IMenuCallProps {
   setOrganisationStructure: (structure: buildingSimplified[]) => void;
 }
-
-export default IMenuProps;

@@ -1,20 +1,22 @@
 import React, { FunctionComponent, useEffect, useCallback } from "react";
-import IMenuProps, { IMenuCallProps } from "./props";
 import Axios, { AxiosResponse } from "axios";
 import buildingSimplified from "./models/buildingSimplified";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { Link } from "react-router-dom";
-import useStyles from "./styles";
+import { useHistory } from "react-router-dom";
+import { IMenuProps, IMenuCallProps } from "./props";
+import CheckIcon from "@material-ui/icons/Check";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   const { buildingId, roomId, structure, setOrganisationStructure } = props;
 
   const [expanded, setExpanded] = React.useState([] as string[]);
   const [selected, setSelected] = React.useState("");
-  const styles = useStyles();
+  let history = useHistory();
 
   useEffect(() => {
     Axios.get(`${Axios.defaults.baseURL}/organisation/structure`).then(
@@ -32,6 +34,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   }, []);
 
   const handleSelect = (event: React.ChangeEvent<{}>, nodeId: string) => {
+    history.push(nodeId);
     setSelected(nodeId);
   };
 
@@ -51,17 +54,23 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
     expanded
   ]);
 
+  const generateLabel = (title: string, hasEquipment: boolean) => (
+    <Grid container justify="space-between">
+      <Typography>{title}</Typography>
+      {hasEquipment ? <CheckIcon /> : ""}
+    </Grid>
+  );
+
   const generateBuildingNodes = () =>
     structure.map(building => {
       return (
         <TreeItem
           nodeId={`${building.id}`}
           key={`${building.id}`}
-          label={
-            <Link to={`/${building.id}`} className={styles.link}>
-              {building.name}
-            </Link>
-          }
+          label={generateLabel(
+            building.name,
+            building.rooms.some(r => Boolean(r.equipmentsCount))
+          )}
           collapseIcon={
             <ExpandMoreIcon onClick={() => handleToggle(building.id)} />
           }
@@ -79,11 +88,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
       <TreeItem
         nodeId={`${building.id}-${room.id}`}
         key={`${building.id}-${room.id}`}
-        label={
-          <Link to={`/${building.id}/${room.id}`} className={styles.link}>
-            {room.name}
-          </Link>
-        }
+        label={generateLabel(room.name, Boolean(room.equipmentsCount))}
       />
     ));
 

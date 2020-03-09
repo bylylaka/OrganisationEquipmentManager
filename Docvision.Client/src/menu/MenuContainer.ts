@@ -1,25 +1,20 @@
 import { connect } from "react-redux";
-import Menu from "./Menu";
-import IMenuProps, { IMenuCallProps } from "./props";
-import { RouteComponentProps } from "react-router-dom";
 import { State } from "../reducers/reducer";
 import Actions from "../actions/actions";
 import buildingSimplified from "./models/buildingSimplified";
+import { IMenuProps, IMenuCallProps } from "./props";
+import Menu from "./Menu";
+import OrganisationNavigation from "../shared/OrganisationNavigation";
 
-interface MatchProps {
-  buildingId: string;
-  roomId: string;
-}
-
-type ContainerProps = RouteComponentProps<MatchProps>;
+type ContainerProps = OrganisationNavigation;
 
 const mapStateToProps = (
   state: State,
   ownProps: ContainerProps
 ): IMenuProps => {
   return {
-    buildingId: Number(ownProps.match.params.buildingId),
-    roomId: Number(ownProps.match.params.roomId),
+    buildingId: ownProps.buildingId,
+    roomId: ownProps.roomId,
     structure: state.organisationStructure
   };
 };

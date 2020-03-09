@@ -1,14 +1,8 @@
 import React, { FunctionComponent } from "react";
-import "./App.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Axios from "axios";
-import MenuContainer from "./menu/MenuContainer";
+import MainPageContainer from "./mainPage/MainPageContainer";
 
-const App: FunctionComponent = () => {
-  // Axios.get(`${Axios.defaults.baseURL}/organisation`).then(res => {
-  //   console.log(res);
-  // });
-
+const AppRouter: FunctionComponent = () => {
   return (
     <div>
       <Router>
@@ -16,7 +10,7 @@ const App: FunctionComponent = () => {
           <Route
             exact
             path="/:buildingId?/:roomId?"
-            component={MenuContainer}
+            component={MainPageContainer}
           />
         </Switch>
       </Router>
@@ -24,4 +18,4 @@ const App: FunctionComponent = () => {
   );
 };
 
-export default App;
+export default AppRouter;
