@@ -1,6 +1,7 @@
 ﻿namespace Docvision.Server.WebApi.Controllers
 {
 	using AutoMapper;
+	using Docvision.Server.Domain.Exceptions;
 	using Docvision.Server.Domain.Models;
 	using Docvision.Server.Domain.Services;
 	using Docvision.Server.WebApi.Models;
@@ -57,18 +58,6 @@
 			[FromRoute] int roomId,
 			[FromBody] EquipmentsCountInfoViewModel model)
 		{
-			var room = await _organisationService.GetRoomById(roomId);
-			if (room == null)
-			{
-				return BadRequest();
-			}
-
-			var existedEquipment = await _organisationService.GetEquipmentByNameAndRoom(model.Name, roomId);
-			if (existedEquipment != null)
-			{
-				return BadRequest();
-			}
-
 			var equipment = _mapper.Map<Equipment>(model);
 			equipment.RoomId = roomId;
 

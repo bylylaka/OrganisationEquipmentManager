@@ -3,12 +3,14 @@ import { State } from "../../reducers/reducer";
 import { IAppSnackbarProps } from "./props";
 import AppSnackbar from "./AppSnackbar";
 
-const mapStateToProps = (state: State, ownProps: {}): IAppSnackbarProps => {
+const mapStateToProps = (state: State): IAppSnackbarProps => {
   return {
     message: state.AppSnackbarMessage
   };
 };
 
-const AppSnackbarContainer = connect(mapStateToProps, null)(AppSnackbar);
+const AppSnackbarContainer = connect(mapStateToProps)(
+  AppSnackbar
+) as React.ComponentType;
 
-export default AppSnackbarContainer as any; //TODO: remove any and add types to all containers
+export default AppSnackbarContainer;

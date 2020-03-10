@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Docvision.Server.Domain.Models;
-
-namespace Docvision.Server.Domain.Services
+﻿namespace Docvision.Server.Domain.Services
 {
+	using Docvision.Server.Domain.Exceptions;
+	using Docvision.Server.Domain.Models;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+
 	public class OrganisationService : IOrganisationService
 	{
 		private readonly IOrganisationRepository _organisationRepository;
@@ -24,7 +25,19 @@ namespace Docvision.Server.Domain.Services
 			return await _organisationRepository.FindOrganisationStructure();
 		}
 
-		public async Task AddEquipment(Equipment equipment) {
+		public async Task AddEquipment(Equipment equipment)
+		{
+			var room = await GetRoomById(equipment.RoomId);
+			if (room == null)
+			{
+				throw new BadRequestException();
+			}
+
+			var existedEquipment = await GetEquipmentByNameAndRoom(equipment.Name, equipment.RoomId);
+			if (existedEquipment != null)
+			{
+				throw new BadRequestException();
+			}
 			await _organisationRepository.AddEquipment(equipment);
 		}
 

@@ -7,9 +7,10 @@ import { createStore } from "redux";
 import Reducer from "./reducers/reducer";
 import AppSnackbarContainer from "./shared/AppSnackbar/AppSnackbarContainer";
 
+const mainStore = createStore(Reducer);
+
 const Main: FunctionComponent = () => {
   Axios.defaults.baseURL = "http://localhost:55586/api";
-  const mainStore = createStore(Reducer);
 
   return (
     <Provider store={mainStore}>

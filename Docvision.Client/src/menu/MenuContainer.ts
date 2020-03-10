@@ -5,6 +5,7 @@ import BuildingSimplified from "./models/BuildingSimplified";
 import { IMenuProps, IMenuCallProps } from "./props";
 import Menu from "./Menu";
 import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
+import { Dispatch } from "redux";
 
 type ContainerProps = IOrganisationNavigationProps;
 
@@ -19,13 +20,16 @@ const mapStateToProps = (
   };
 };
 
-const mapDispatchToProps = (dispatch: any): IMenuCallProps => {
+const mapDispatchToProps = (dispatch: Dispatch): IMenuCallProps => {
   return {
     setOrganisationStructure: (structure: BuildingSimplified[]) =>
       dispatch(Actions.setOrganisationStructure(structure))
   };
 };
 
-const MenuContainer = connect(mapStateToProps, mapDispatchToProps)(Menu);
+const MenuContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu) as React.ComponentType<ContainerProps>;
 
 export default MenuContainer;

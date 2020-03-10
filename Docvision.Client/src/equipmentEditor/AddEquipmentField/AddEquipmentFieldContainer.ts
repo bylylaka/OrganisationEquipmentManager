@@ -8,10 +8,10 @@ import {
 } from "./props";
 import Actions from "../../actions/actions";
 import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
+import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
+import { Dispatch } from "redux";
 
-type ContainerProps = {
-  roomId: number;
-};
+type ContainerProps = Pick<IOrganisationNavigationProps, "roomId">;
 
 const mapStateToProps = (
   state: State,
@@ -23,8 +23,9 @@ const mapStateToProps = (
   };
 };
 
-const mapDispatchToProps = (dispatch: any): IAddEquipmentFieldCallProps => {
-  //TODO: add type to dispatch
+const mapDispatchToProps = (
+  dispatch: Dispatch
+): IAddEquipmentFieldCallProps => {
   return {
     setEquipmentsCountInfo: (info: EquipmentsCountInfo[]) =>
       dispatch(Actions.setEquipmentsCountInfo(info)),
@@ -37,6 +38,6 @@ const mapDispatchToProps = (dispatch: any): IAddEquipmentFieldCallProps => {
 const AddEquipmentFieldContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddEquipmentField);
+)(AddEquipmentField) as React.ComponentType<ContainerProps>;
 
 export default AddEquipmentFieldContainer;

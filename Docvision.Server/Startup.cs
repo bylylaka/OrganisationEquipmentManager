@@ -9,6 +9,7 @@
 	using Docvision.Server.Domain.Services;
 	using Docvision.Server.Infrastructure.Repositories;
 	using AutoMapper;
+	using Docvision.Server.WebApi.Middleware;
 
 	public class Startup
 	{
@@ -39,6 +40,8 @@
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseHttpStatusCodeExceptionMiddleware();
 
 			app.UseCors(builder => builder
 				.AllowAnyOrigin()
