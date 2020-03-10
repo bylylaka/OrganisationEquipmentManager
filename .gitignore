@@ -13,7 +13,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+*.d.ts
+tsconfig.json
 
 
 #backend

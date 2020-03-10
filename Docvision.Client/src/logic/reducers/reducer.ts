@@ -1,7 +1,7 @@
 import ActionTypes from "../actionTypes/actionTypes";
-import BuildingSimplified from "../menu/models/BuildingSimplified";
-import { EquipmentsCountInfo } from "../equipmentEditor/AddEquipmentField/props";
-import { AppSnackbarMessage } from "../shared/AppSnackbar/props";
+import BuildingSimplified from "../../menu/models/BuildingSimplified";
+import { EquipmentsCountInfo } from "../../equipmentEditor/AddEquipmentField/props";
+import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
 
 export interface State {
   organisationStructure: BuildingSimplified[];
@@ -30,7 +30,7 @@ export const Reducer = (
         ...state,
         equipmentsCountInfo: action.equipmentsCountInfo //TODO: add type
       };
-    case ActionTypes.SET_AppSnackbar_MESSAGE:
+    case ActionTypes.SET_APPSNACKBAR_MESSAGE:
       return {
         ...state,
         AppSnackbarMessage: action.message //TODO: add type

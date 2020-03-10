@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import MainPage from "./MainPage";
 import { RouteComponentProps } from "react-router-dom";
-import { State } from "../reducers/reducer";
+import { State } from "../logic/reducers/reducer";
 import { IMainPageProps } from "./props";
 
 interface MatchProps {

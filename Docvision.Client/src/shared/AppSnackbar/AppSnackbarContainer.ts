@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { State } from "../../reducers/reducer";
+import { State } from "../../logic/reducers/reducer";
 import { IAppSnackbarProps } from "./props";
 import AppSnackbar from "./AppSnackbar";
 

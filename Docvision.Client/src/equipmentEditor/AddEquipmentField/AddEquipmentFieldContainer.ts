@@ -1,12 +1,12 @@
 import { connect } from "react-redux";
-import { State } from "../../reducers/reducer";
+import { State } from "../../logic/reducers/reducer";
 import AddEquipmentField from "./AddEquipmentField";
 import {
   IAddEquipmentFieldProps,
   IAddEquipmentFieldCallProps,
   EquipmentsCountInfo
 } from "./props";
-import Actions from "../../actions/actions";
+import Actions from "../../logic/actions/actions";
 import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
 import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
 import { Dispatch } from "redux";

@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import { State } from "../reducers/reducer";
-import Actions from "../actions/actions";
+import { State } from "../logic/reducers/reducer";
 import BuildingSimplified from "./models/BuildingSimplified";
 import { IMenuProps, IMenuCallProps } from "./props";
 import Menu from "./Menu";
 import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 import { Dispatch } from "redux";
+import Actions from "../logic/actions/actions";
 
 type ContainerProps = IOrganisationNavigationProps;
 

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { State } from "../reducers/reducer";
+import { State } from "../logic/reducers/reducer";
 import { IEquipmentEditorProps, IEquipmentEditorCallProps } from "./props";
 import EquipmentEditor from "./EquipmentEditor";
 import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
