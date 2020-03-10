@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import MainPageContainer from "./mainPage/MainPageContainer";
+import NotFountPage from "./notFoundPage/NotFoundPage";
 
 const AppRouter: FunctionComponent = () => {
   return (
@@ -12,6 +13,7 @@ const AppRouter: FunctionComponent = () => {
             path="/:buildingId?/:roomId?"
             component={MainPageContainer}
           />
+          <Route component={NotFountPage} />
         </Switch>
       </Router>
     </div>
