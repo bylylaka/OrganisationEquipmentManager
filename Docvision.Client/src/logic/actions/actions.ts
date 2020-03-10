@@ -1,9 +1,10 @@
 import ActionTypes from "../actionTypes/actionTypes";
-import { EquipmentsCountInfo } from "../../equipmentEditor/AddEquipmentField/props";
-import BuildingSimplified from "../../menu/models/BuildingSimplified";
-import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
+import { EquipmentsCountInfo } from "../../GUI/equipmentEditor/AddEquipmentField/props";
+import { AppSnackbarMessage } from "../../GUI/shared/AppSnackbar/props";
+import BuildingSimplified from "../../GUI/menu/models/buildingSimplified";
 
 const Actions = {
+  //store actions
   setOrganisationStructure(structure: BuildingSimplified[]) {
     return {
       type: ActionTypes.SET_ORGANISATION_STRUCTURE,
@@ -20,6 +21,13 @@ const Actions = {
     return {
       type: ActionTypes.SET_APPSNACKBAR_MESSAGE,
       message
+    };
+  },
+
+  //saga actions
+  getOrganisationStructure() {
+    return {
+      type: ActionTypes.GET_ORGANISATION_STRUCTURE
     };
   }
 };

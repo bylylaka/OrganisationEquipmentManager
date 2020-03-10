@@ -1,4 +1,4 @@
-import RoomSimplified from "./RoomSimplified";
+import RoomSimplified from "./roomSimplified";
 
 interface BuildingSimplified {
   id: number;

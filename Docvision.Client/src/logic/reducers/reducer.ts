@@ -1,7 +1,8 @@
 import ActionTypes from "../actionTypes/actionTypes";
-import BuildingSimplified from "../../menu/models/BuildingSimplified";
-import { EquipmentsCountInfo } from "../../equipmentEditor/AddEquipmentField/props";
-import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
+import BuildingSimplified from "../../GUI/menu/models/buildingSimplified";
+import { EquipmentsCountInfo } from "../../GUI/equipmentEditor/AddEquipmentField/props";
+import { AppSnackbarMessage } from "../../GUI/shared/AppSnackbar/props";
+import Actions from "../actions/actions";
 
 export interface State {
   organisationStructure: BuildingSimplified[];
@@ -15,9 +16,13 @@ const initialState: State = {
   AppSnackbarMessage: {} as AppSnackbarMessage
 };
 
+type Action = ReturnType<typeof Actions.setAppSnackbarMessage> &
+  ReturnType<typeof Actions.setEquipmentsCountInfo> &
+  ReturnType<typeof Actions.setOrganisationStructure>;
+
 export const Reducer = (
   state = initialState,
-  action: any //TODO: type (And for cases)
+  action: Action //TODO: type (And for cases)
 ): State => {
   switch (action.type) {
     case ActionTypes.SET_ORGANISATION_STRUCTURE:

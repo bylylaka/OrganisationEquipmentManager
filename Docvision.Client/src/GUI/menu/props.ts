@@ -1,10 +1,10 @@
 import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
-import BuildingSimplified from "./models/BuildingSimplified";
+import BuildingSimplified from "./models/buildingSimplified";
 
 export interface IMenuProps extends IOrganisationNavigationProps {
   structure: BuildingSimplified[];
 }
 
 export interface IMenuCallProps {
-  setOrganisationStructure: (structure: BuildingSimplified[]) => void;
+  loadOrganisationStructure: () => void;
 }

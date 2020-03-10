@@ -14,21 +14,26 @@ import { IMenuProps, IMenuCallProps } from "./props";
 import CheckIcon from "@material-ui/icons/Check";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import BuildingSimplified from "./models/BuildingSimplified";
+import BuildingSimplified from "./models/buildingSimplified";
 
 const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
-  const { buildingId, roomId, structure, setOrganisationStructure } = props;
+  const { buildingId, roomId, structure, loadOrganisationStructure } = props;
 
   const [expanded, setExpanded] = useState([] as string[]);
   const [selected, setSelected] = useState("");
   let history = useHistory();
 
   useEffect(() => {
-    Axios.get(`${Axios.defaults.baseURL}/organisation/structure`).then(
-      (response: AxiosResponse<BuildingSimplified[]>) => {
-        setOrganisationStructure(response.data);
-      }
-    );
+    loadOrganisationStructure(); //TODO: name - load or get??? (everywhere)
+
+    // Axios.get(`${Axios.defaults.baseURL}/organisation/structure`).then(
+    //   (response: AxiosResponse<BuildingSimplified[]>) => {
+    //     setOrganisationStructure(response.data);
+    //   }
+    // );
+
+    //call saga to load data
+
     if (buildingId) {
       setExpanded([`${buildingId}`]);
       setSelected(`${buildingId}`);
