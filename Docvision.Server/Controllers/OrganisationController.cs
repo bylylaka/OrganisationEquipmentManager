@@ -61,8 +61,9 @@
 			var equipment = _mapper.Map<Equipment>(model);
 			equipment.RoomId = roomId;
 
-			await _organisationService.AddEquipment(equipment);
-			return NoContent();
+			var newEquipment = await _organisationService.AddEquipment(equipment);
+			var newEquipmentCountInfo = _mapper.Map<EquipmentsCountInfoViewModel>(model);
+			return Ok(newEquipmentCountInfo);
 		}
 	}
 }

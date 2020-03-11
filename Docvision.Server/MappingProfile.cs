@@ -17,7 +17,8 @@
 				.ForMember(rs => rs.EquipmentsCount,
 				opt => opt.MapFrom(r => r.Equipments.Sum(e => e.Count)));
 
-			CreateMap<EquipmentsCountInfoViewModel, Equipment>();
+			CreateMap<EquipmentsCountInfoViewModel, Equipment>()
+				.ReverseMap();
 		}
 	}
 }

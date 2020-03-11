@@ -10,11 +10,8 @@ type ContainerProps = IOrganisationNavigationProps;
 const mapStateToProps = (
   state: State,
   ownProps: ContainerProps
-): IEquipmentEditorProps => {
-  return {
-    buildingId: ownProps.buildingId,
-    roomId: ownProps.roomId
-  };
+): Omit<IEquipmentEditorProps, keyof ContainerProps> => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): IEquipmentEditorCallProps => {

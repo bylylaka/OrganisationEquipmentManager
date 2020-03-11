@@ -4,7 +4,6 @@
 	using Docvision.Server.Domain.Services;
 	using Microsoft.EntityFrameworkCore;
 	using System.Collections.Generic;
-	using System.Linq;
 	using System.Threading.Tasks;
 
 	public class OrganisationRepository : IOrganisationRepository
@@ -30,10 +29,12 @@
 				.ToListAsync();
 		}
 
-		public async Task AddEquipment(Equipment equipment)
+		public async Task<Equipment> AddEquipment(Equipment equipment)
 		{
-			await _dbContext.AddAsync(equipment);
+			var newEquipment = await _dbContext.AddAsync(equipment);
 			await _dbContext.SaveChangesAsync();
+
+			return newEquipment.Entity;
 		}
 
 		public async Task<Room> FindRoomById(int id)

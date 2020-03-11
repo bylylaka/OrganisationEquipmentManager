@@ -14,6 +14,6 @@ namespace Docvision.Server.Domain.Services
 
 		Task<Equipment> GetEquipmentByNameAndRoom(string name, int roomId);
 
-		Task AddEquipment(Equipment equipment);
+		Task<Equipment> AddEquipment(Equipment equipment);
 	}
 }

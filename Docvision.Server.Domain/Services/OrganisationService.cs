@@ -25,7 +25,7 @@
 			return await _organisationRepository.FindOrganisationStructure();
 		}
 
-		public async Task AddEquipment(Equipment equipment)
+		public async Task<Equipment> AddEquipment(Equipment equipment)
 		{
 			var room = await GetRoomById(equipment.RoomId);
 			if (room == null)
@@ -38,7 +38,7 @@
 			{
 				throw new BadRequestException();
 			}
-			await _organisationRepository.AddEquipment(equipment);
+			return await _organisationRepository.AddEquipment(equipment);
 		}
 
 		public async Task<Room> GetRoomById(int id)

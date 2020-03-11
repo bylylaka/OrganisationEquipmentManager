@@ -24,15 +24,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
   let history = useHistory();
 
   useEffect(() => {
-    loadOrganisationStructure(); //TODO: name - load or get??? (everywhere)
-
-    // Axios.get(`${Axios.defaults.baseURL}/organisation/structure`).then(
-    //   (response: AxiosResponse<BuildingSimplified[]>) => {
-    //     setOrganisationStructure(response.data);
-    //   }
-    // );
-
-    //call saga to load data
+    loadOrganisationStructure();
 
     if (buildingId) {
       setExpanded([`${buildingId}`]);
@@ -103,6 +95,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
       />
     ));
 
+  //TODO: make fixed width with scrollbar when loading
   return (
     <TreeView
       expanded={expanded}

@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const createStyles = makeStyles({
   circularProgress: {
     position: "absolute"
   }
 });
 
-export default useStyles;
+export default createStyles;

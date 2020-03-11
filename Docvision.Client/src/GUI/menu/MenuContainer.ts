@@ -11,10 +11,8 @@ type ContainerProps = IOrganisationNavigationProps;
 const mapStateToProps = (
   state: State,
   ownProps: ContainerProps
-): IMenuProps => {
+): Omit<IMenuProps, keyof ContainerProps> => {
   return {
-    buildingId: ownProps.buildingId,
-    roomId: ownProps.roomId,
     structure: state.organisationStructure
   };
 };

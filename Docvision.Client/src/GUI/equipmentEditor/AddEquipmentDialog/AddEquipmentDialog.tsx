@@ -10,7 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import useStyles from "./styles";
+import createStyles from "./styles";
 
 const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
   IAddEquipmentDialogCallProps> = props => {
@@ -23,7 +23,7 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
     submitting
   } = props;
 
-  const classes = useStyles();
+  const classes = createStyles();
 
   return (
     <Dialog

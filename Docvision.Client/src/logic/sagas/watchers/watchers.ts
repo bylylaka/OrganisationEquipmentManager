@@ -9,6 +9,21 @@ function* getOrganisationStructureWatcher() {
   );
 }
 
+function* getEquipmentCountInfoWatcher() {
+  yield takeLatest(
+    ActionTypes.GET_EQUIPMENT_COUNT_INFO,
+    Sagas.getEquipmentCountInfoSaga
+  );
+}
+
+function* createEquipmentWatcher() {
+  yield takeLatest(ActionTypes.CREATE_EQUIPMENT, Sagas.createEquipmentSaga);
+}
+
 export default function* watchers() {
-  yield all([getOrganisationStructureWatcher()]);
+  yield all([
+    getOrganisationStructureWatcher(),
+    getEquipmentCountInfoWatcher(),
+    createEquipmentWatcher()
+  ]);
 }

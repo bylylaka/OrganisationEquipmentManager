@@ -7,31 +7,25 @@ import {
   EquipmentsCountInfo
 } from "./props";
 import Actions from "../../../logic/actions/actions";
-import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
-import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
 import { Dispatch } from "redux";
+import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
 
 type ContainerProps = Pick<IOrganisationNavigationProps, "roomId">;
 
-const mapStateToProps = (
-  state: State,
-  ownProps: ContainerProps
-): IAddEquipmentFieldProps => {
+const mapStateToProps = (state: State): IAddEquipmentFieldProps => {
   return {
-    equipmentsCountInfo: state.equipmentsCountInfo,
-    roomId: ownProps.roomId
+    equipmentsCountInfo: state.equipmentsCountInfo
   };
 };
 
 const mapDispatchToProps = (
-  dispatch: Dispatch
+  dispatch: Dispatch,
+  ownProps: ContainerProps
 ): IAddEquipmentFieldCallProps => {
   return {
-    setEquipmentsCountInfo: (info: EquipmentsCountInfo[]) =>
-      dispatch(Actions.setEquipmentsCountInfo(info)),
-    enqueAppSnackbar: (message: AppSnackbarMessage) => {
-      dispatch(Actions.setAppSnackbarMessage(message));
-    }
+    loadEquipmentsCountInfo: () => dispatch(Actions.getEquipmentCountInfo()),
+    createEquipment: (equipment: EquipmentsCountInfo) =>
+      dispatch(Actions.createEquipment(ownProps.roomId, equipment))
   };
 };
 

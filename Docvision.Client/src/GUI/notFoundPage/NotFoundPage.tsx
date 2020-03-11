@@ -2,10 +2,10 @@ import React from "react";
 import { FunctionComponent } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "./styles";
+import createStyles from "./styles";
 
 const NotFountPage: FunctionComponent = () => {
-  const classes = useStyles();
+  const classes = createStyles();
 
   return (
     <Grid

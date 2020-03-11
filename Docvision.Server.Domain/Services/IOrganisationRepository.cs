@@ -10,7 +10,7 @@ namespace Docvision.Server.Domain.Services
 
 		Task<List<Equipment>> FindAllEquipments();
 
-		Task AddEquipment(Equipment equipment);
+		Task<Equipment> AddEquipment(Equipment equipment);
 
 		Task<Equipment> FindEquipmentByNameAndRoom(string name, int roomId);
 

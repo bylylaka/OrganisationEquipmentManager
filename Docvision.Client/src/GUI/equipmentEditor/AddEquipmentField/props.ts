@@ -1,5 +1,3 @@
-import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
-
 export interface IAddEquipmentFieldProps {
   equipmentsCountInfo: EquipmentsCountInfo[];
   buildingId?: number;
@@ -7,8 +5,8 @@ export interface IAddEquipmentFieldProps {
 }
 
 export interface IAddEquipmentFieldCallProps {
-  setEquipmentsCountInfo: (info: EquipmentsCountInfo[]) => void;
-  enqueAppSnackbar: (message: AppSnackbarMessage) => void;
+  loadEquipmentsCountInfo: () => void;
+  createEquipment: (equipment: EquipmentsCountInfo) => void;
 }
 
 export class EquipmentsCountInfo {

@@ -21,9 +21,8 @@ const mapStateToProps = (
   };
 };
 
-const MainPageContainer = connect(
-  mapStateToProps,
-  null
-)(MainPage) as React.ComponentType<ContainerProps>;
+const MainPageContainer = connect(mapStateToProps)(
+  MainPage
+) as React.ComponentType<ContainerProps>;
 
 export default MainPageContainer;

@@ -29,6 +29,18 @@ const Actions = {
     return {
       type: ActionTypes.GET_ORGANISATION_STRUCTURE
     };
+  },
+  getEquipmentCountInfo() {
+    return {
+      type: ActionTypes.GET_EQUIPMENT_COUNT_INFO
+    };
+  },
+  createEquipment(roomId: number, equipment: EquipmentsCountInfo) {
+    return {
+      type: ActionTypes.CREATE_EQUIPMENT,
+      roomId,
+      equipment
+    };
   }
 };
 

@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const createStyles = makeStyles({
-  fullscreenHeight: {
-    height: "100vh"
+  autocompleteTextField: {
+    width: 300
   }
 });
 

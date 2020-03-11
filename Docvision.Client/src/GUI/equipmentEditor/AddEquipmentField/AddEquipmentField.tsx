@@ -11,22 +11,21 @@ import {
   EquipmentsCountInfo
 } from "./props";
 import Grid from "@material-ui/core/Grid";
-import Axios, { AxiosResponse } from "axios";
 import Autocomplete, {
   createFilterOptions
 } from "@material-ui/lab/Autocomplete";
 import { FilterOptionsState } from "@material-ui/lab/useAutocomplete";
 import AddEquipmentDialog from "../AddEquipmentDialog/AddEquipmentDialog";
 import Typography from "@material-ui/core/Typography";
-import { AppSnackbarMessage } from "../../shared/AppSnackbar/props";
+import createStyles from "./styles";
+import classes from "*.module.css";
 
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
   const {
     equipmentsCountInfo,
-    setEquipmentsCountInfo,
-    roomId,
-    enqueAppSnackbar
+    loadEquipmentsCountInfo,
+    createEquipment
   } = props;
 
   const [inputValue, setInputValue] = useState("");
@@ -36,15 +35,10 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     new EquipmentsCountInfo("", 0)
   );
   const filter = createFilterOptions<string>();
+  const classes = createStyles();
 
   useEffect(() => {
-    Axios.get(`${Axios.defaults.baseURL}/organisation/equipmentsCountInfo`)
-      .then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-        setEquipmentsCountInfo(response.data);
-      })
-      .catch(error => {
-        //TODO: handle error everywhere, AppSnackbar, uuid4
-      });
+    loadEquipmentsCountInfo();
   }, []);
 
   const handleClose = () => {
@@ -56,14 +50,9 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     event.preventDefault();
     setSubmitting(true);
 
-    Axios.post(
-      `${Axios.defaults.baseURL}/organisation/AddEquipment/${roomId}`,
-      dialogValue
-    ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-      var updatedEquipmentsCountInfo = [...equipmentsCountInfo];
-      updatedEquipmentsCountInfo.push(dialogValue);
-      setEquipmentsCountInfo(updatedEquipmentsCountInfo);
-    });
+    createEquipment(dialogValue);
+
+    //TODO: add submitting flag to store
 
     setSubmitting(false);
     setInputValue("");
@@ -125,7 +114,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
         options={memoizedGenerateOptions()}
         getOptionLabel={getOptionLabel}
         renderOption={option => `Добавить "${option}"`}
-        style={{ width: 300 }} //TODO: CHANGE
+        className={classes.autocompleteTextField}
         freeSolo
         renderInput={params => (
           <TextField
