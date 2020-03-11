@@ -11,7 +11,7 @@ export const Sagas = {
     const response: AxiosResponse<BuildingSimplified[]> = yield call(
       Apis.getOrganisationStructure
     );
-    // TODO: NEED TO CATCH ERROR
+    // TODO: NEED TO CATCH ERROR (IN INTERCEPTOR)
     yield put(Actions.setOrganisationStructure(response.data));
   }
 };

@@ -1,12 +1,16 @@
 import { v1 as uuid } from "uuid";
 
+export type IAppSnackbarMessageType = "error" | "info" | "success";
+
 export class AppSnackbarMessage {
-  constructor(message: string) {
+  constructor(message: string, type: IAppSnackbarMessageType) {
     this.message = message;
+    this.type = type;
     this.uuid = uuid();
   }
-  message: string;
-  uuid: string;
+  public message: string;
+  public type: IAppSnackbarMessageType;
+  private uuid: string;
 }
 
 export interface IAppSnackbarProps {

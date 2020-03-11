@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FunctionComponent } from "react";
 import { IAppSnackbarProps } from "./props";
 import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const AppSnackbar: FunctionComponent<IAppSnackbarProps> = props => {
   const { message } = props;
@@ -30,8 +31,11 @@ const AppSnackbar: FunctionComponent<IAppSnackbarProps> = props => {
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      message={message.message}
-    />
+    >
+      <MuiAlert variant="filled" severity={message.type}>
+        {message.message}
+      </MuiAlert>
+    </Snackbar>
   );
 };
 

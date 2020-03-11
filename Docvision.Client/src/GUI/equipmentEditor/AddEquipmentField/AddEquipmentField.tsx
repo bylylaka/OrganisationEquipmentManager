@@ -59,19 +59,11 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     Axios.post(
       `${Axios.defaults.baseURL}/organisation/AddEquipment/${roomId}`,
       dialogValue
-    )
-      .then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
-        var updatedEquipmentsCountInfo = [...equipmentsCountInfo];
-        updatedEquipmentsCountInfo.push(dialogValue);
-        setEquipmentsCountInfo(updatedEquipmentsCountInfo);
-      })
-      .catch(error => {
-        //TODO: СДелать единую обработку
-        let appSnackbarMessage = new AppSnackbarMessage(
-          "Произошло что-то нехорошее. Пожалуйста, повторите попытку."
-        );
-        enqueAppSnackbar(appSnackbarMessage);
-      });
+    ).then((response: AxiosResponse<EquipmentsCountInfo[]>) => {
+      var updatedEquipmentsCountInfo = [...equipmentsCountInfo];
+      updatedEquipmentsCountInfo.push(dialogValue);
+      setEquipmentsCountInfo(updatedEquipmentsCountInfo);
+    });
 
     setSubmitting(false);
     setInputValue("");
