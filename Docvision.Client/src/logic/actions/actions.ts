@@ -11,10 +11,10 @@ const Actions = {
       structure
     };
   },
-  setAllEquipmentNames(allEquipmentNames: EquipmentSimplified[]) {
+  setallEquipment(allEquipment: EquipmentSimplified[]) {
     return {
-      type: ActionTypes.SET_ALL_EQUIPMENT_NAMES,
-      allEquipmentNames
+      type: ActionTypes.SET_ALL_EQUIPMENT,
+      allEquipment
     };
   },
 
@@ -43,9 +43,9 @@ const Actions = {
       type: ActionTypes.GET_ORGANISATION_STRUCTURE
     };
   },
-  getAllEquipmentNames() {
+  getallEquipment() {
     return {
-      type: ActionTypes.GET_ALL_EQUIPMENT_NAMES
+      type: ActionTypes.GET_ALL_EQUIPMENT
     };
   },
   getLocalEquipment(buildingId: number, roomId: number) {

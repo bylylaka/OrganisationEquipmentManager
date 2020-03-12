@@ -1,7 +1,7 @@
 import EquipmentSimplified from "../models/equipmentSimplified";
 
 export interface IAddEquipmentFieldProps {
-  allEquipmentNames: EquipmentSimplified[];
+  allEquipment: EquipmentSimplified[];
   localEquipment: EquipmentSimplified[];
   equipmentCreationInProgress: boolean;
   buildingId?: number;

@@ -12,7 +12,7 @@ const mapStateToProps = (
   ownProps: ContainerProps
 ): Omit<IEquipmentListProps, keyof ContainerProps> => {
   return {
-    equipment: state.localEquipment
+    equipment: [...state.localEquipment]
   };
 };
 

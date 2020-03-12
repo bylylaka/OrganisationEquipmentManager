@@ -1,8 +1,8 @@
 import { State } from "../../reducers/reducer";
 
 const Selectors = {
-  allEquipmentNames(state: State) {
-    return state.allEquipmentNames;
+  allEquipment(state: State) {
+    return state.allEquipment;
   },
   localEquipmentNames(state: State) {
     return state.localEquipment;

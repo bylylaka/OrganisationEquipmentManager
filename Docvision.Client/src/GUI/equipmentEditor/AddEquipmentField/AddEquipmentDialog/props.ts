@@ -1,4 +1,4 @@
-import EquipmentSimplified from "../models/equipmentSimplified";
+import EquipmentSimplified from "../../models/equipmentSimplified";
 
 export interface IAddEqiupmentDialogProps {
   isOpen: boolean;
@@ -10,4 +10,5 @@ export interface IAddEquipmentDialogCallProps {
   handleClose: () => void;
   handleSubmit: (event: React.ChangeEvent<{}>) => void;
   setDialogValue: (dialogValue: EquipmentSimplified) => void;
+  getNameErrorMessage: (name: string) => string;
 }

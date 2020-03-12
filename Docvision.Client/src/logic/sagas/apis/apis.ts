@@ -5,10 +5,8 @@ export const Apis = {
   getOrganisationStructure() {
     return Axios.get(`${Axios.defaults.baseURL}/organisation/structure`);
   },
-  getAllEquipmentNames() {
-    return Axios.get(
-      `${Axios.defaults.baseURL}/organisation/allEquipmentNames`
-    );
+  getallEquipment() {
+    return Axios.get(`${Axios.defaults.baseURL}/organisation/allEquipment`);
   },
   getLocalEquipment(buildingId: number, roomId?: number) {
     return Axios.get(

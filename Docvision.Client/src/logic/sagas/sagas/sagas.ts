@@ -15,11 +15,11 @@ export const Sagas = {
     yield put(Actions.setOrganisationStructure(response.data));
   },
 
-  *getAllEquipmentNamesSaga() {
+  *getallEquipmentSaga() {
     const response: AxiosResponse<EquipmentSimplified[]> = yield call(
-      Apis.getAllEquipmentNames
+      Apis.getallEquipment
     );
-    yield put(Actions.setAllEquipmentNames(response.data));
+    yield put(Actions.setallEquipment(response.data));
   },
 
   *getLocalEquipmentSaga(action: ReturnType<typeof Actions.getLocalEquipment>) {
@@ -55,18 +55,16 @@ export const Sagas = {
   },
 
   *addToAllEuipment(equipment: EquipmentSimplified) {
-    const allEquipmentNames: EquipmentSimplified[] = yield select(
-      Selectors.allEquipmentNames
+    const allEquipment: EquipmentSimplified[] = yield select(
+      Selectors.allEquipment
     );
-    if (allEquipmentNames.some(e => e.name == equipment.name)) {
-      let existedEquipment = allEquipmentNames.find(
-        e => e.name == equipment.name
-      );
+    if (allEquipment.some(e => e.name == equipment.name)) {
+      let existedEquipment = allEquipment.find(e => e.name == equipment.name);
       (existedEquipment as EquipmentSimplified).count += equipment.count;
     } else {
-      allEquipmentNames.push(equipment);
+      allEquipment.push(equipment);
     }
-    yield put(Actions.setAllEquipmentNames(allEquipmentNames));
+    yield put(Actions.setallEquipment(allEquipment));
   },
 
   *addToLocalEuipment(equipment: EquipmentSimplified) {

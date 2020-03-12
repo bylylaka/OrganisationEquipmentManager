@@ -8,12 +8,12 @@ import createStyles from "./styles";
 
 const EquipmentEditor: FunctionComponent<IEquipmentEditorProps &
   IEquipmentEditorCallProps> = props => {
-  const { buildingId, roomId, loadAllEquipmentNames } = props;
+  const { buildingId, roomId, loadallEquipment } = props;
 
   const classes = createStyles();
 
   useEffect(() => {
-    loadAllEquipmentNames();
+    loadallEquipment();
   }, []);
 
   return (

@@ -11,7 +11,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import createStyles from "./styles";
-import EquipmentSimplified from "../models/equipmentSimplified";
+import EquipmentSimplified from "../../models/equipmentSimplified";
 
 const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
   IAddEquipmentDialogCallProps> = props => {
@@ -21,25 +21,26 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
     handleSubmit,
     dialogValue,
     setDialogValue,
-    submitting
+    submitting,
+    getNameErrorMessage
   } = props;
 
   const classes = createStyles();
 
   const [nameFieldErrorMessage, setNameFieldErrorMessage] = useState("");
 
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-
     setDialogValue({ ...dialogValue, name: value });
+    let errorMessage = getNameErrorMessage(value);
+    setNameFieldErrorMessage(errorMessage);
+  };
 
-    if (value.length < 1 || value.length > EquipmentSimplified.maxNameLength) {
-      setNameFieldErrorMessage(
-        `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`
-      );
-    } else {
-      setNameFieldErrorMessage("");
-    }
+  const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDialogValue({
+      ...dialogValue,
+      count: Number(event.target.value)
+    });
   };
 
   return (
@@ -59,7 +60,7 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
             helperText={nameFieldErrorMessage || " "}
             margin="dense"
             value={dialogValue.name}
-            onChange={onNameChange}
+            onChange={handleNameChange}
             className={classes.nameField}
             label="title"
             type="text"
@@ -67,14 +68,9 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
           <TextField
             required
             margin="dense"
-            inputProps={{ min: "1", max: "10000" }}
+            inputProps={{ min: "1", max: EquipmentSimplified.maxCountValue }}
             value={dialogValue.count}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setDialogValue({
-                ...dialogValue,
-                count: Number(event.target.value)
-              })
-            }
+            onChange={handleCountChange}
             label="Count"
             type="number"
           />

@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { IAddEquipmentFieldProps, IAddEquipmentFieldCallProps } from "./props";
 import Grid from "@material-ui/core/Grid";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import AddEquipmentDialog from "../AddEquipmentDialog/AddEquipmentDialog";
+import AddEquipmentDialog from "./AddEquipmentDialog/AddEquipmentDialog";
 import Typography from "@material-ui/core/Typography";
 import createStyles from "./styles";
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,7 @@ import EquipmentSimplified from "../models/equipmentSimplified";
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
   const {
-    allEquipmentNames,
+    allEquipment,
     localEquipment,
     createEquipment,
     equipmentCreationInProgress,
@@ -35,6 +35,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
 
   useEffect(() => {
     setInputValue("");
+    setErrorMessage("");
   }, [roomId]);
 
   const handleClose = () => {
@@ -53,12 +54,24 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   };
 
   const handleSubmitClick = () => {
+    let errorMessage = getNameErrorMessage(inputValue);
     if (Boolean(errorMessage)) {
+      setErrorMessage(errorMessage);
       return;
     }
     toggleOpen(true);
     let dialogValue = new EquipmentSimplified(inputValue, 1);
     setDialogValue(dialogValue);
+  };
+
+  const getNameErrorMessage = (name: string): string => {
+    if (name.length < 1 || name.length > EquipmentSimplified.maxNameLength) {
+      return `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`;
+    }
+    if (localEquipment.map(e => e.name).indexOf(name) != -1) {
+      return "Оборудование уже содержится в этой комнате.";
+    }
+    return "";
   };
 
   const onInputChange = (
@@ -67,29 +80,19 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     reason: "input" | "reset" | "clear"
   ) => {
     setInputValue(value);
-    if (value.length < 1 || value.length > EquipmentSimplified.maxNameLength) {
-      setErrorMessage(
-        `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`
-      );
-    } else {
-      setErrorMessage("");
-    }
-  };
-
-  const getOptionLabel = (option: string) => {
-    return option;
+    var errorMessage = getNameErrorMessage(value);
+    setErrorMessage(errorMessage);
   };
 
   const generateOptions = (): string[] => {
-    //TODO: remove current page equipment
-    //TODO: add validator for already existed in this room equipments
     let locaEquipmentNames = localEquipment.map(e => e.name);
-    return allEquipmentNames.map(info => info.name);
+    let allEquipmentNames = allEquipment.map(e => e.name);
+    return allEquipmentNames.filter(e => locaEquipmentNames.indexOf(e) == -1);
   };
 
   const memoizedGenerateOptions = useCallback(() => generateOptions(), [
-    allEquipmentNames,
-    localEquipmentNames
+    allEquipment,
+    localEquipment
   ]);
 
   return (
@@ -102,7 +105,6 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
           inputValue={inputValue}
           onInputChange={onInputChange}
           options={memoizedGenerateOptions()}
-          getOptionLabel={getOptionLabel}
           className={classes.autocompleteTextField}
           freeSolo
           renderInput={params => (
@@ -123,6 +125,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
           setDialogValue={setDialogValue}
           handleSubmit={submit}
           isOpen={open}
+          getNameErrorMessage={getNameErrorMessage}
         />
 
         <Button

@@ -9,11 +9,8 @@ function* getOrganisationStructureWatcher() {
   );
 }
 
-function* getAllEquipmentNamesWatcher() {
-  yield takeLatest(
-    ActionTypes.GET_ALL_EQUIPMENT_NAMES,
-    Sagas.getAllEquipmentNamesSaga
-  );
+function* getallEquipmentWatcher() {
+  yield takeLatest(ActionTypes.GET_ALL_EQUIPMENT, Sagas.getallEquipmentSaga);
 }
 
 function* getLocalEquipmentWatcher() {
@@ -30,7 +27,7 @@ function* createEquipmentWatcher() {
 export default function* watchers() {
   yield all([
     getOrganisationStructureWatcher(),
-    getAllEquipmentNamesWatcher(),
+    getallEquipmentWatcher(),
     getLocalEquipmentWatcher(),
     createEquipmentWatcher()
   ]);

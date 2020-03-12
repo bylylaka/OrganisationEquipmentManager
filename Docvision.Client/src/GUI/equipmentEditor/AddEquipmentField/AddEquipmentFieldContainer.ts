@@ -11,8 +11,8 @@ type ContainerProps = Pick<IOrganisationNavigationProps, "roomId">;
 
 const mapStateToProps = (state: State): IAddEquipmentFieldProps => {
   return {
-    allEquipmentNames: state.allEquipmentNames,
-    localEquipment: state.localEquipment,
+    allEquipment: [...state.allEquipment],
+    localEquipment: [...state.localEquipment],
     equipmentCreationInProgress: state.equipmentCreationInProgress
   };
 };

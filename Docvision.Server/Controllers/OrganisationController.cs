@@ -37,7 +37,7 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> AllEquipmentNames()
+		public async Task<IActionResult> AllEquipment()
 		{
 			var equipment = await _organisationService.GetAllEquipment();
 
