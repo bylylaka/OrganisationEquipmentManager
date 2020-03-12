@@ -7,13 +7,15 @@ import { AnyAction } from "redux";
 export interface State {
   organisationStructure: BuildingSimplified[];
   equipmentsCountInfo: EquipmentsCountInfo[];
-  AppSnackbarMessage: AppSnackbarMessage;
+  appSnackbarMessage: AppSnackbarMessage;
+  equipmentCreationInProgress: boolean;
 }
 
 const initialState: State = {
   organisationStructure: [],
   equipmentsCountInfo: [],
-  AppSnackbarMessage: {} as AppSnackbarMessage
+  appSnackbarMessage: {} as AppSnackbarMessage,
+  equipmentCreationInProgress: false
 };
 
 export const Reducer = (state = initialState, action: AnyAction): State => {
@@ -28,10 +30,15 @@ export const Reducer = (state = initialState, action: AnyAction): State => {
         ...state,
         equipmentsCountInfo: action.equipmentsCountInfo
       };
+    case ActionTypes.SET_EQUIPMENT_CREATION_IN_PROGRESS:
+      return {
+        ...state,
+        equipmentCreationInProgress: action.inProgress
+      };
     case ActionTypes.SET_APPSNACKBAR_MESSAGE:
       return {
         ...state,
-        AppSnackbarMessage: action.message
+        appSnackbarMessage: action.message
       };
     default:
       return state;

@@ -11,30 +11,28 @@ import {
   EquipmentsCountInfo
 } from "./props";
 import Grid from "@material-ui/core/Grid";
-import Autocomplete, {
-  createFilterOptions
-} from "@material-ui/lab/Autocomplete";
-import { FilterOptionsState } from "@material-ui/lab/useAutocomplete";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import AddEquipmentDialog from "../AddEquipmentDialog/AddEquipmentDialog";
 import Typography from "@material-ui/core/Typography";
 import createStyles from "./styles";
-import classes from "*.module.css";
+import Button from "@material-ui/core/Button";
 
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
   const {
     equipmentsCountInfo,
     loadEquipmentsCountInfo,
-    createEquipment
+    createEquipment,
+    equipmentCreationInProgress
   } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [open, toggleOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [dialogValue, setDialogValue] = useState(
     new EquipmentsCountInfo("", 0)
   );
-  const filter = createFilterOptions<string>();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const classes = createStyles();
 
   useEffect(() => {
@@ -42,33 +40,24 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   }, []);
 
   const handleClose = () => {
+    if (equipmentCreationInProgress) {
+      return;
+    }
     setDialogValue(new EquipmentsCountInfo("", 0));
     toggleOpen(false);
   };
 
-  const handleSubmit = (event: React.ChangeEvent<{}>) => {
+  const submit = (event: React.ChangeEvent<{}>) => {
     event.preventDefault();
-    setSubmitting(true);
-
     createEquipment(dialogValue);
-
-    //TODO: add submitting flag to store
-
-    setSubmitting(false);
     setInputValue("");
     handleClose();
   };
 
-  const onChange = (event: React.ChangeEvent<{}>, newValue: string | null) => {
-    if (newValue == null) {
-      return;
-    }
-    setTimeout(() => {
-      // timeout to avoid instant validation of the dialog's form.
-      toggleOpen(true);
-      let dialogValue = new EquipmentsCountInfo(newValue, 1);
-      setDialogValue(dialogValue);
-    });
+  const handleSubmitClick = () => {
+    toggleOpen(true);
+    let dialogValue = new EquipmentsCountInfo(inputValue, 1);
+    setDialogValue(dialogValue);
     return;
   };
 
@@ -78,17 +67,13 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     reason: "input" | "reset" | "clear"
   ) => {
     setInputValue(value);
-  };
-
-  const filterOptions = (options: string[], params: FilterOptionsState) => {
-    const filtered = filter(options, params);
-    if (
-      params.inputValue &&
-      memoizedGenerateOptions().indexOf(params.inputValue) === -1
-    ) {
-      filtered.push(params.inputValue);
+    if (value.length < 1 || value.length > EquipmentsCountInfo.maxNameLength) {
+      setErrorMessage(
+        `Строка должна иметь длину от 1 до ${EquipmentsCountInfo.maxNameLength} символв включительно.`
+      );
+    } else {
+      setErrorMessage("");
     }
-    return filtered;
   };
 
   const getOptionLabel = (option: string) => {
@@ -105,34 +90,45 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
 
   return (
     <Grid item>
-      <Typography>Добавить новое оборудование</Typography>
-      <Autocomplete
-        inputValue={inputValue}
-        onInputChange={onInputChange}
-        onChange={onChange}
-        filterOptions={filterOptions}
-        options={memoizedGenerateOptions()}
-        getOptionLabel={getOptionLabel}
-        renderOption={option => `Добавить "${option}"`}
-        className={classes.autocompleteTextField}
-        freeSolo
-        renderInput={params => (
-          <TextField
-            {...params}
-            placeholder="Введите название оборудования"
-            label="Наименование оборудования"
-            variant="outlined"
-          />
-        )}
-      />
-      <AddEquipmentDialog
-        submitting={submitting}
-        handleClose={handleClose}
-        dialogValue={dialogValue}
-        setDialogValue={setDialogValue}
-        handleSubmit={handleSubmit}
-        isOpen={open}
-      />
+      <Typography className={classes.tite}>
+        Добавить новое оборудование
+      </Typography>
+      <Grid item container alignItems="center">
+        <Autocomplete
+          onInputChange={onInputChange}
+          options={memoizedGenerateOptions()}
+          getOptionLabel={getOptionLabel}
+          className={classes.autocompleteTextField}
+          freeSolo
+          renderInput={params => (
+            <TextField
+              {...params}
+              error={Boolean(errorMessage)}
+              helperText={errorMessage}
+              placeholder="Введите название оборудования"
+              label="Наименование оборудования"
+              variant="outlined"
+            />
+          )}
+        />
+        <AddEquipmentDialog
+          submitting={equipmentCreationInProgress}
+          handleClose={handleClose}
+          dialogValue={dialogValue}
+          setDialogValue={setDialogValue}
+          handleSubmit={submit}
+          isOpen={open}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={handleSubmitClick}
+        >
+          Добавить
+        </Button>
+      </Grid>
     </Grid>
   );
 };

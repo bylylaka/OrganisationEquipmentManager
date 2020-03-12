@@ -5,7 +5,7 @@ import AppSnackbar from "./AppSnackbar";
 
 const mapStateToProps = (state: State): IAppSnackbarProps => {
   return {
-    message: state.AppSnackbarMessage
+    message: state.appSnackbarMessage
   };
 };
 

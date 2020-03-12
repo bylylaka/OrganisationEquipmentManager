@@ -23,6 +23,12 @@ const Actions = {
       message
     };
   },
+  setEquipmentCreationInProgress(inProgress: boolean) {
+    return {
+      type: ActionTypes.SET_EQUIPMENT_CREATION_IN_PROGRESS,
+      inProgress
+    };
+  },
 
   //saga actions
   getOrganisationStructure() {

@@ -1,5 +1,6 @@
 export interface IAddEquipmentFieldProps {
   equipmentsCountInfo: EquipmentsCountInfo[];
+  equipmentCreationInProgress: boolean;
   buildingId?: number;
   roomId?: number;
 }
@@ -16,4 +17,5 @@ export class EquipmentsCountInfo {
   }
   name: string;
   count: number;
+  static readonly maxNameLength: number = 100;
 }

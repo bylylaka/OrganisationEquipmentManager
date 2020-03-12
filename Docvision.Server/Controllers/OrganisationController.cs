@@ -58,6 +58,11 @@
 			[FromRoute] int roomId,
 			[FromBody] EquipmentsCountInfoViewModel model)
 		{
+			if (!ModelState.IsValid)
+			{
+				throw new BadRequestException();
+			}
+
 			var equipment = _mapper.Map<Equipment>(model);
 			equipment.RoomId = roomId;
 
