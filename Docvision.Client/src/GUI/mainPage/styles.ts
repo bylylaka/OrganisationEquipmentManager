@@ -1,11 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const createStyles = makeStyles({
-  root: {
-    width: 640
+  menu: {
+    height: "98vh",
+    overflow: "auto",
+    maxWidth: 300,
+    minWidth: 300
   },
-  header: {
-    height: 120
+  main: {
+    marginLeft: 30
   }
 });
 

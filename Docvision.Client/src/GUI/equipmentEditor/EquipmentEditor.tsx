@@ -16,26 +16,34 @@ const EquipmentEditor: FunctionComponent<IEquipmentEditorProps &
     loadallEquipment();
   }, []);
 
-  return (
-    <Grid>
-      {Boolean(roomId) && (
+  const renderHeader = () => {
+    if (Boolean(roomId)) {
+      return (
         <AddEquipmentFieldContainer
           buildingId={buildingId}
           roomId={roomId as number}
         />
-      )}
+      );
+    }
+    if (Boolean(buildingId)) {
+      return (
+        <Typography variant="h5" color="primary">
+          Оборудование здания
+        </Typography>
+      );
+    }
+    return (
+      <Typography variant="h5" color="primary">
+        Выберите здание или комнату в боковом меню для просмотра содержимого.
+      </Typography>
+    );
+  };
+
+  return (
+    <Grid className={classes.root}>
+      <Grid className={classes.header}>{renderHeader()}</Grid>
       {Boolean(buildingId) && (
         <EquipmentListContainer buildingId={buildingId} roomId={roomId} />
-      )}
-      {!Boolean(buildingId) && (
-        <Grid container alignItems="center" justify="center">
-          <Grid item>
-            <Typography variant="h5" color="primary">
-              Выберите здание или комнату в боковом меню для просмотра
-              содержимого.
-            </Typography>
-          </Grid>
-        </Grid>
       )}
     </Grid>
   );

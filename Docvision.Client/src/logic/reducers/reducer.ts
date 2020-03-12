@@ -6,6 +6,7 @@ import EquipmentSimplified from "../../GUI/equipmentEditor/models/equipmentSimpl
 
 export interface State {
   organisationStructure: BuildingSimplified[];
+  setOrganisationStructureIsLoading: boolean;
   allEquipment: EquipmentSimplified[];
   localEquipment: EquipmentSimplified[];
   appSnackbarMessage: AppSnackbarMessage;
@@ -14,6 +15,7 @@ export interface State {
 
 const initialState: State = {
   organisationStructure: [],
+  setOrganisationStructureIsLoading: false,
   allEquipment: [],
   localEquipment: [],
   appSnackbarMessage: {} as AppSnackbarMessage,
@@ -26,6 +28,11 @@ export const Reducer = (state = initialState, action: AnyAction): State => {
       return {
         ...state,
         organisationStructure: action.structure
+      };
+    case ActionTypes.SET_ORGANISATION_STRUCTURE_IS_LOADING:
+      return {
+        ...state,
+        setOrganisationStructureIsLoading: action.isLoading
       };
     case ActionTypes.SET_ALL_EQUIPMENT:
       return {

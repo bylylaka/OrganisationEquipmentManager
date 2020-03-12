@@ -100,7 +100,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
       <Typography className={classes.tite}>
         Добавить новое оборудование
       </Typography>
-      <Grid item container>
+      <Grid item container wrap="nowrap">
         <Autocomplete
           inputValue={inputValue}
           onInputChange={onInputChange}

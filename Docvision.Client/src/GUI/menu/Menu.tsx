@@ -15,13 +15,23 @@ import CheckIcon from "@material-ui/icons/Check";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import BuildingSimplified from "./models/buildingSimplified";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import makeStyles from "./styles";
 
 const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
-  const { buildingId, roomId, structure, loadOrganisationStructure } = props;
+  const {
+    buildingId,
+    roomId,
+    structure,
+    loadOrganisationStructure,
+    isLoading
+  } = props;
 
   const [expanded, setExpanded] = useState([] as string[]);
   const [selected, setSelected] = useState("");
   let history = useHistory();
+
+  const classes = makeStyles();
 
   useEffect(() => {
     loadOrganisationStructure();
@@ -95,7 +105,18 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
       />
     ));
 
-  //TODO: make fixed width with scrollbar when loading
+  if (isLoading) {
+    return (
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        className={classes.progressContainer}
+      >
+        <CircularProgress />
+      </Grid>
+    );
+  }
   return (
     <TreeView
       expanded={expanded}

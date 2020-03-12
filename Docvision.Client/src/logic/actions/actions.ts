@@ -11,6 +11,12 @@ const Actions = {
       structure
     };
   },
+  setOrganisationStructureIsLoading(isLoading: boolean) {
+    return {
+      type: ActionTypes.SET_ORGANISATION_STRUCTURE_IS_LOADING,
+      isLoading
+    };
+  },
   setallEquipment(allEquipment: EquipmentSimplified[]) {
     return {
       type: ActionTypes.SET_ALL_EQUIPMENT,

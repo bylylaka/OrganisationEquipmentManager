@@ -10,10 +10,13 @@ import RoomSimplified from "../../../GUI/menu/models/roomSimplified";
 
 export const Sagas = {
   *getOrganisationStructureSaga() {
+    yield put(Actions.setOrganisationStructureIsLoading(true));
+
     const response: AxiosResponse<BuildingSimplified[]> = yield call(
       Apis.getOrganisationStructure
     );
     yield put(Actions.setOrganisationStructure(response.data));
+    yield put(Actions.setOrganisationStructureIsLoading(false));
   },
 
   *getallEquipmentSaga() {

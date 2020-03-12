@@ -22,7 +22,7 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
   }, [buildingId, roomId]);
 
   return (
-    <List className={classes.root}>
+    <List className={classes.root} style={{ maxHeight: 820, overflow: "auto" }}>
       {equipment.map(e => (
         <EquipmentListItem
           equipment={e}
