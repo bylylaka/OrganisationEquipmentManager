@@ -68,21 +68,29 @@ export const Sagas = {
     let allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    if (allEquipment.some(e => e.name === equipment.name)) {
-      let existedEquipment = allEquipment.find(e => e.name === equipment.name);
+    const allEquipmentCopy = [...allEquipment];
+
+    if (allEquipmentCopy.some(e => e.name === equipment.name)) {
+      let existedEquipment = allEquipmentCopy.find(
+        e => e.name === equipment.name
+      );
       (existedEquipment as EquipmentSimplified).count += equipment.count;
     } else {
-      allEquipment.push(equipment);
+      allEquipmentCopy.push(equipment);
     }
-    yield put(Actions.setallEquipment(allEquipment));
+    yield put(Actions.setallEquipment(allEquipmentCopy));
   },
 
   *addToLocalEquipment(equipment: EquipmentSimplified) {
     let localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    localEquipment.push(equipment);
-    yield put(Actions.setLocalEquipments(localEquipment));
+
+    //PROBLEM IS THAT ENTITIES FROM STORE ARE TRACKING!
+    const localEquipmentCopy = [...localEquipment];
+    localEquipmentCopy.push(equipment);
+
+    yield put(Actions.setLocalEquipments(localEquipmentCopy));
   },
 
   *updateEquipmentCountSaga(
@@ -91,7 +99,9 @@ export const Sagas = {
     const localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    const oldEquipmentCount = localEquipment.find(
+    const localEquipmentCopy = [...localEquipment];
+
+    const oldEquipmentCount = localEquipmentCopy.find(
       e => e.name === action.equipment.name
     )?.count;
     const response: AxiosResponse<EquipmentSimplified> = yield call(
@@ -120,21 +130,26 @@ export const Sagas = {
     let allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
+    const allEquipmentCopy = [...allEquipment];
 
-    (allEquipment.find(
+    (allEquipmentCopy.find(
       e => e.name === equipment.name
     ) as EquipmentSimplified).count += delta;
-    yield put(Actions.setallEquipment(allEquipment));
+
+    yield put(Actions.setallEquipment(allEquipmentCopy));
   },
 
   *updateLocalEquipment(equipment: EquipmentSimplified, delta: number) {
     let localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    (localEquipment.find(
+    const localEquipmentCopy = [...localEquipment];
+
+    (localEquipmentCopy.find(
       e => e.name === equipment.name
     ) as EquipmentSimplified).count += delta;
-    yield put(Actions.setLocalEquipments(localEquipment));
+
+    yield put(Actions.setLocalEquipments(localEquipmentCopy));
   },
 
   *deleteEquipmentSaga(action: ReturnType<typeof Actions.deleteEquipment>) {
