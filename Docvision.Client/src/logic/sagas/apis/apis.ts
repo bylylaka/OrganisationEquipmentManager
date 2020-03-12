@@ -19,6 +19,12 @@ export const Apis = {
       equipment
     );
   },
+  updateEquipmentCount(roomId: number, equipment: EquipmentSimplified) {
+    return Axios.put(
+      `${Axios.defaults.baseURL}/organisation/equipment/${roomId}`,
+      equipment
+    );
+  },
   deleteEquipment(roomId: number, equipment: EquipmentSimplified) {
     return Axios.delete(
       `${Axios.defaults.baseURL}/organisation/equipment/${roomId}`,

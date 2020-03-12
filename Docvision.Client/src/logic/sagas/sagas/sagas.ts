@@ -41,13 +41,13 @@ export const Sagas = {
         action.equipment
       );
 
-      yield call(Sagas.addToAllEuipment, response.data);
-      yield call(Sagas.addToLocalEuipment, response.data);
+      yield call(Sagas.addToAllEquipment, response.data);
+      yield call(Sagas.addToLocalEquipment, response.data);
       yield call(
-        Sagas.addEquipmentToOrganisationStructure,
+        Sagas.updateEquipmentCountForOrganisationStructure,
         action.buildingId,
         action.roomId,
-        action.equipment
+        action.equipment.count
       );
 
       yield put(
@@ -61,12 +61,12 @@ export const Sagas = {
     }
   },
 
-  *addToAllEuipment(equipment: EquipmentSimplified) {
+  *addToAllEquipment(equipment: EquipmentSimplified) {
     let allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    if (allEquipment.some(e => e.name == equipment.name)) {
-      let existedEquipment = allEquipment.find(e => e.name == equipment.name);
+    if (allEquipment.some(e => e.name === equipment.name)) {
+      let existedEquipment = allEquipment.find(e => e.name === equipment.name);
       (existedEquipment as EquipmentSimplified).count += equipment.count;
     } else {
       allEquipment.push(equipment);
@@ -74,41 +74,76 @@ export const Sagas = {
     yield put(Actions.setallEquipment(allEquipment));
   },
 
-  *addToLocalEuipment(equipment: EquipmentSimplified) {
+  *addToLocalEquipment(equipment: EquipmentSimplified) {
     let localEquipment: EquipmentSimplified[] = yield select(
-      Selectors.localEquipmentNames
+      Selectors.localEquipment
     );
     localEquipment.push(equipment);
     yield put(Actions.setLocalEquipments(localEquipment));
   },
 
-  *addEquipmentToOrganisationStructure(
-    buildingId: number,
-    roomId: number,
-    equipment: EquipmentSimplified
+  *updateEquipmentCountSaga(
+    action: ReturnType<typeof Actions.updateEquipmentCount>
   ) {
-    let buildingsStructure: BuildingSimplified[] = yield select(
-      Selectors.organisationStructure
+    const localEquipment: EquipmentSimplified[] = yield select(
+      Selectors.localEquipment
     );
-    let roomInStructure = buildingsStructure
-      .find(b => b.id == buildingId)
-      ?.rooms.find(r => r.id == roomId);
+    const oldEquipmentCount = localEquipment.find(
+      e => e.name === action.equipment.name
+    )?.count;
+    const response: AxiosResponse<EquipmentSimplified> = yield call(
+      Apis.updateEquipmentCount,
+      action.roomId,
+      action.equipment
+    );
+    const newEquipmentCount = response.data.count;
+    const delta = newEquipmentCount - Number(oldEquipmentCount);
+    yield call(Sagas.updateAllEquipment, response.data, delta);
+    yield call(Sagas.updateLocalEquipment, response.data, delta);
+    yield call(
+      Sagas.updateEquipmentCountForOrganisationStructure,
+      action.buildingId,
+      action.roomId,
+      delta
+    );
+    yield put(
+      Actions.setAppSnackbarMessage(
+        new AppSnackbarMessage("Значение успешно обновлено.", "success")
+      )
+    );
+  },
 
-    (roomInStructure as RoomSimplified).equipmentCount += equipment.count;
+  *updateAllEquipment(equipment: EquipmentSimplified, delta: number) {
+    let allEquipment: EquipmentSimplified[] = yield select(
+      Selectors.allEquipment
+    );
 
-    yield put(Actions.setOrganisationStructure(buildingsStructure));
+    (allEquipment.find(
+      e => e.name === equipment.name
+    ) as EquipmentSimplified).count += delta;
+    yield put(Actions.setallEquipment(allEquipment));
+  },
+
+  *updateLocalEquipment(equipment: EquipmentSimplified, delta: number) {
+    let localEquipment: EquipmentSimplified[] = yield select(
+      Selectors.localEquipment
+    );
+    (localEquipment.find(
+      e => e.name === equipment.name
+    ) as EquipmentSimplified).count += delta;
+    yield put(Actions.setLocalEquipments(localEquipment));
   },
 
   *deleteEquipmentSaga(action: ReturnType<typeof Actions.deleteEquipment>) {
     yield call(Apis.deleteEquipment, action.roomId, action.equipment);
 
-    yield call(Sagas.removeFromAllEuipment, action.equipment);
-    yield call(Sagas.removeFromLocalEuipment, action.equipment);
+    yield call(Sagas.removeFromAllEquipment, action.equipment);
+    yield call(Sagas.removeFromLocalEquipment, action.equipment);
     yield call(
-      Sagas.removeEquipmentFromOrganisationStructure,
+      Sagas.updateEquipmentCountForOrganisationStructure,
       action.buildingId,
       action.roomId,
-      action.equipment
+      -action.equipment.count
     );
 
     yield put(
@@ -118,11 +153,11 @@ export const Sagas = {
     );
   },
 
-  *removeFromAllEuipment(equipment: EquipmentSimplified) {
+  *removeFromAllEquipment(equipment: EquipmentSimplified) {
     let allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    const foundEquipment = allEquipment.find(e => e.name == equipment.name);
+    const foundEquipment = allEquipment.find(e => e.name === equipment.name);
 
     if (Number(foundEquipment?.count) > equipment.count) {
       (foundEquipment as EquipmentSimplified).count -= equipment.count;
@@ -133,27 +168,27 @@ export const Sagas = {
     yield put(Actions.setallEquipment(allEquipment));
   },
 
-  *removeFromLocalEuipment(equipment: EquipmentSimplified) {
+  *removeFromLocalEquipment(equipment: EquipmentSimplified) {
     let localEquipment: EquipmentSimplified[] = yield select(
-      Selectors.localEquipmentNames
+      Selectors.localEquipment
     );
     localEquipment = localEquipment.filter(e => e.name != equipment.name);
     yield put(Actions.setLocalEquipments(localEquipment));
   },
 
-  *removeEquipmentFromOrganisationStructure(
+  *updateEquipmentCountForOrganisationStructure(
     buildingId: number,
     roomId: number,
-    equipment: EquipmentSimplified
+    delta: number
   ) {
     let buildingsStructure: BuildingSimplified[] = yield select(
       Selectors.organisationStructure
     );
     let roomInStructure = buildingsStructure
-      .find(b => b.id == buildingId)
-      ?.rooms.find(r => r.id == roomId);
+      .find(b => b.id === buildingId)
+      ?.rooms.find(r => r.id === roomId);
 
-    (roomInStructure as RoomSimplified).equipmentCount -= equipment.count;
+    (roomInStructure as RoomSimplified).equipmentCount += delta;
 
     yield put(Actions.setOrganisationStructure(buildingsStructure));
   }

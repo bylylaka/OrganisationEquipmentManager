@@ -24,6 +24,13 @@ function* createEquipmentWatcher() {
   yield takeLatest(ActionTypes.CREATE_EQUIPMENT, Sagas.createEquipmentSaga);
 }
 
+function* updateEquipmentCountWatcher() {
+  yield takeLatest(
+    ActionTypes.UPDATE_EQUIPMENT_COUNT,
+    Sagas.updateEquipmentCountSaga
+  );
+}
+
 function* deleteEquipmentWatcher() {
   yield takeLatest(ActionTypes.DELETE_EQUIPMENT, Sagas.deleteEquipmentSaga);
 }
@@ -34,6 +41,7 @@ export default function* watchers() {
     getallEquipmentWatcher(),
     getLocalEquipmentWatcher(),
     createEquipmentWatcher(),
+    updateEquipmentCountWatcher(),
     deleteEquipmentWatcher()
   ]);
 }

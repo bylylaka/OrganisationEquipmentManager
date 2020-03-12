@@ -35,9 +35,9 @@
 			return await _organisationRepository.FindRoomById(id);
 		}
 
-		public async Task<Equipment> GetEquipmentByNameAndRoom(string name, int roomId)
+		public async Task<Equipment> GetEquipmentByNameAndRoom(string name, int roomId, bool tracking = false)
 		{
-			return await _organisationRepository.FindEquipmentByNameAndRoom(name, roomId);
+			return await _organisationRepository.FindEquipmentByNameAndRoom(name, roomId, tracking);
 		}
 
 		public async Task<List<Equipment>> GetBuildingEquipment(int buildingId)
@@ -74,6 +74,26 @@
 				throw new BadRequestException();
 			}
 			return await _organisationRepository.AddEquipment(equipment);
+		}
+
+		public async Task<Equipment> UpdateEquipment(Equipment equipment)
+		{
+			var room = await GetRoomById(equipment.RoomId);
+			if (room == null)
+			{
+				throw new BadRequestException();
+			}
+
+			var existedEquipment = await GetEquipmentByNameAndRoom(equipment.Name, equipment.RoomId, true);
+			if (existedEquipment == null)
+			{
+				throw new BadRequestException();
+			}
+
+			existedEquipment.Count = equipment.Count;
+			await _organisationRepository.SaveChangesAsync();
+
+			return existedEquipment;
 		}
 
 		public async Task RemoveEquipment(Equipment equipment)

@@ -14,8 +14,8 @@ type ContainerProps = Pick<
 
 const mapStateToProps = (state: State): IAddEquipmentFieldProps => {
   return {
-    allEquipment: [...state.allEquipment],
-    localEquipment: [...state.localEquipment],
+    allEquipment: state.allEquipment,
+    localEquipment: state.localEquipment,
     equipmentCreationInProgress: state.equipmentCreationInProgress
   };
 };

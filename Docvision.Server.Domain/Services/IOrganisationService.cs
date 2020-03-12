@@ -14,13 +14,15 @@
 
 		Task<Room> GetRoomById(int id);
 
-		Task<Equipment> GetEquipmentByNameAndRoom(string name, int roomId);
+		Task<Equipment> GetEquipmentByNameAndRoom(string name, int roomId, bool tracking = false);
 
 		Task<List<Equipment>> GetBuildingEquipment(int buildingId);
 
 		Task<List<Equipment>> GetRoomEquipment(int roomId);
 
 		Task<Equipment> AddEquipment(Equipment equipment);
+
+		Task<Equipment> UpdateEquipment(Equipment equipment);
 
 		Task RemoveEquipment(Equipment equipment);
 	}

@@ -67,6 +67,18 @@ const Actions = {
       equipment
     };
   },
+  updateEquipmentCount(
+    buildingId: number,
+    roomId: number,
+    equipment: EquipmentSimplified
+  ) {
+    return {
+      type: ActionTypes.UPDATE_EQUIPMENT_COUNT,
+      buildingId,
+      roomId,
+      equipment
+    };
+  },
   deleteEquipment(
     buildingId: number,
     roomId: number,

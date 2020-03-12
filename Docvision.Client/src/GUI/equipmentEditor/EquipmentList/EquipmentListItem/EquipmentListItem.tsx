@@ -8,12 +8,12 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import ClearIcon from "@material-ui/icons/Clear";
 import Tooltip from "@material-ui/core/Tooltip";
-import EquipmentSimplified from "../../models/equipmentSimplified";
 import IconButton from "@material-ui/core/IconButton";
+import EquipmentSimplified from "../../models/equipmentSimplified";
 
 const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
   IEquipmentListItemCallProps> = props => {
-  const { equipment, roomId, removeEquipment } = props;
+  const { equipment, roomId, removeEquipment, updateEquipmentCount } = props;
 
   const classes = createStyles();
 
@@ -32,8 +32,15 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
     removeEquipment(equipment);
   };
 
+  const handeSubmit = (event: React.ChangeEvent<{}>) => {
+    event.preventDefault();
+    let newEquipment = equipment;
+    newEquipment.count = count;
+    updateEquipmentCount(equipment);
+  };
+
   return (
-    <>
+    <form onSubmit={handeSubmit}>
       <Grid
         container
         key={equipment.name}
@@ -49,12 +56,11 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
           container
           alignItems="center"
           wrap="nowrap"
-          className={
-            classes.control + " " + (isNaN(roomId) ? classes.hidden : "")
-          }
+          className={classes.control}
         >
           <TextField
             required
+            disabled={isNaN(roomId)}
             margin="dense"
             inputProps={{ min: "1", max: EquipmentSimplified.maxCountValue }}
             value={count}
@@ -62,23 +68,26 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
             label="Count"
             type="number"
           />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            disabled={equipment.count == count}
-          >
-            Сохранить
-          </Button>
-          <Tooltip title="Удалить">
-            <IconButton size="small">
-              <ClearIcon color="error" onClick={handleRemove} />
-            </IconButton>
-          </Tooltip>
+          <span className={isNaN(roomId) ? classes.hidden : ""}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              disabled={equipment.count === count}
+              type="submit"
+            >
+              Сохранить
+            </Button>
+            <Tooltip title="Удалить">
+              <IconButton size="small">
+                <ClearIcon color="error" onClick={handleRemove} />
+              </IconButton>
+            </Tooltip>
+          </span>
         </Grid>
       </Grid>
       <Divider />
-    </>
+    </form>
   );
 };
 

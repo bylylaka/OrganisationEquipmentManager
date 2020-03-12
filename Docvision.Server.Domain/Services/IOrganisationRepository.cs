@@ -14,7 +14,7 @@
 
 		Task<Room> FindRoomById(int id);
 
-		Task<Equipment> FindEquipmentByNameAndRoom(string name, int roomId);
+		Task<Equipment> FindEquipmentByNameAndRoom(string name, int roomId, bool tracking = false);
 
 		Task<List<Equipment>> FindBuildingEquipment(int buildingId);
 
@@ -23,5 +23,7 @@
 		Task<Equipment> AddEquipment(Equipment equipment);
 
 		Task RemoveEquipment(Equipment equipment);
+
+		Task SaveChangesAsync();
 	}
 }

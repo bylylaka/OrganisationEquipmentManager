@@ -7,4 +7,5 @@ export interface IEquipmentListItemProps {
 
 export interface IEquipmentListItemCallProps {
   removeEquipment: (equipment: EquipmentSimplified) => void;
+  updateEquipmentCount: (equipment: EquipmentSimplified) => void;
 }

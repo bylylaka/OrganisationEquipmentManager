@@ -7,7 +7,7 @@ const Selectors = {
   allEquipment(state: State) {
     return state.allEquipment;
   },
-  localEquipmentNames(state: State) {
+  localEquipment(state: State) {
     return state.localEquipment;
   }
 };

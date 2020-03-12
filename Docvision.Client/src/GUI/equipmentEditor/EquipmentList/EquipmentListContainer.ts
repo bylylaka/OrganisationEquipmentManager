@@ -13,7 +13,7 @@ const mapStateToProps = (
   ownProps: ContainerProps
 ): Omit<IEquipmentListProps, keyof ContainerProps> => {
   return {
-    equipment: [...state.localEquipment]
+    equipment: JSON.parse(JSON.stringify(state.localEquipment))
   };
 };
 
@@ -27,6 +27,14 @@ const mapDispatchToProps = (
     removeEquipment: (equipment: EquipmentSimplified) =>
       dispatch(
         Actions.deleteEquipment(ownProps.buildingId, ownProps.roomId, equipment)
+      ),
+    updateEquipmentCount: (equipment: EquipmentSimplified) =>
+      dispatch(
+        Actions.updateEquipmentCount(
+          ownProps.buildingId,
+          ownProps.roomId,
+          equipment
+        )
       )
   };
 };

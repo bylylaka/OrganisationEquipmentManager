@@ -106,6 +106,25 @@
 		}
 
 		[Route("equipment/{roomId}")]
+		[HttpPut]
+		public async Task<IActionResult> UpdateEquipment(
+			[FromRoute] int roomId,
+			[FromBody] EquipmentSimplifiedViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				throw new BadRequestException();
+			}
+
+			var equipment = _mapper.Map<Equipment>(model);
+			equipment.RoomId = roomId;
+
+			var newEquipment = await _organisationService.UpdateEquipment(equipment);
+			var newEquipmentCountInfo = _mapper.Map<EquipmentSimplifiedViewModel>(model);
+			return Ok(newEquipmentCountInfo);
+		}
+
+		[Route("equipment/{roomId}")]
 		[HttpDelete]
 		public async Task<IActionResult> RemoveEquipment(
 			[FromRoute] int roomId,

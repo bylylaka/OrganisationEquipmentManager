@@ -11,7 +11,8 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
     buildingId,
     roomId,
     getEquipment,
-    removeEquipment
+    removeEquipment,
+    updateEquipmentCount
   } = props;
 
   const classes = createStyles();
@@ -27,6 +28,7 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
           equipment={e}
           roomId={roomId}
           removeEquipment={removeEquipment}
+          updateEquipmentCount={updateEquipmentCount}
         />
       ))}
     </List>
