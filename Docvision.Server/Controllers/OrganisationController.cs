@@ -6,6 +6,7 @@
 	using Docvision.Server.Domain.Services;
 	using Docvision.Server.WebApi.Models;
 	using Microsoft.AspNetCore.Mvc;
+	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
 
@@ -36,27 +37,58 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> EquipmentsCountInfo()
+		public async Task<IActionResult> AllEquipmentNames()
 		{
-			var equipments = await _organisationService.GetAllEquipments();
+			var equipment = await _organisationService.GetAllEquipment();
 
-			var equipmentsInfo = equipments
+			var equipmentInfo = equipment
 				.GroupBy(e => e.Name)
-				.Select(e => new EquipmentsCountInfoViewModel()
+				.Select(e => new EquipmentSimplifiedViewModel()
 				{
 					Name = e.Key,
 					Count = e.Sum(x => x.Count)
 				})
 				.ToList();
 
-			return Ok(equipmentsInfo);
+			return Ok(equipmentInfo);
+		}
+
+		[Route("{buildingId}/{roomId?}")]
+		[HttpGet]
+		public async Task<IActionResult> LocalEquipment(
+			[FromRoute] int buildingId,
+			[FromRoute] int? roomId)
+		{
+			List<EquipmentSimplifiedViewModel> simplifiedEquipment;
+
+			if (roomId.HasValue)
+			{
+				var equipment = await _organisationService.GetRoomEquipment(roomId.Value);
+				simplifiedEquipment = equipment
+					.Select(e => _mapper.Map<EquipmentSimplifiedViewModel>(e))
+					.ToList();
+			}
+			else
+			{
+				var equipment = await _organisationService.GetBuildingEquipment(buildingId);
+				simplifiedEquipment = equipment
+					.GroupBy(e => e.Name)
+					.Select(e => new EquipmentSimplifiedViewModel()
+					{
+						Name = e.Key,
+						Count = e.Sum(x => x.Count)
+					})
+					.ToList();
+			}
+
+			return Ok(simplifiedEquipment);
 		}
 
 		[Route("{roomId}")]
 		[HttpPost]
-		public async Task<IActionResult> AddEquipment(
+		public async Task<IActionResult> Equipment(
 			[FromRoute] int roomId,
-			[FromBody] EquipmentsCountInfoViewModel model)
+			[FromBody] EquipmentSimplifiedViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -67,7 +99,7 @@
 			equipment.RoomId = roomId;
 
 			var newEquipment = await _organisationService.AddEquipment(equipment);
-			var newEquipmentCountInfo = _mapper.Map<EquipmentsCountInfoViewModel>(model);
+			var newEquipmentCountInfo = _mapper.Map<EquipmentSimplifiedViewModel>(model);
 			return Ok(newEquipmentCountInfo);
 		}
 	}

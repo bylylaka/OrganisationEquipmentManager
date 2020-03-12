@@ -1,18 +1,23 @@
 import Axios from "axios";
-import { EquipmentsCountInfo } from "../../../GUI/equipmentEditor/AddEquipmentField/props";
+import EquipmentSimplified from "../../../GUI/equipmentEditor/models/equipmentSimplified";
 
 export const Apis = {
   getOrganisationStructure() {
     return Axios.get(`${Axios.defaults.baseURL}/organisation/structure`);
   },
-  getEquipmentCountInfo() {
+  getAllEquipmentNames() {
     return Axios.get(
-      `${Axios.defaults.baseURL}/organisation/equipmentsCountInfo`
+      `${Axios.defaults.baseURL}/organisation/allEquipmentNames`
     );
   },
-  createEquipment(roomId: number, equipment: EquipmentsCountInfo) {
+  getLocalEquipment(buildingId: number, roomId?: number) {
+    return Axios.get(
+      `${Axios.defaults.baseURL}/organisation/localEquipment/${buildingId}/${roomId}`
+    );
+  },
+  createEquipment(roomId: number, equipment: EquipmentSimplified) {
     return Axios.post(
-      `${Axios.defaults.baseURL}/organisation/AddEquipment/${roomId}`,
+      `${Axios.defaults.baseURL}/organisation/equipment/${roomId}`,
       equipment
     );
   }

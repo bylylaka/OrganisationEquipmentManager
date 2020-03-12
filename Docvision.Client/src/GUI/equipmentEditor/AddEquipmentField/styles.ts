@@ -5,11 +5,11 @@ const createStyles = makeStyles({
     marginBottom: 10
   },
   autocompleteTextField: {
-    width: 300
+    width: 500
   },
   button: {
-    height: "fit-content",
-    marginLeft: 30
+    height: 55,
+    marginLeft: 20
   }
 });
 

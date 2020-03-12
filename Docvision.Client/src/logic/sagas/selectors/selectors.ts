@@ -1,8 +1,11 @@
 import { State } from "../../reducers/reducer";
 
 const Selectors = {
-  equipmentsCountInfo(state: State) {
-    return state.equipmentsCountInfo;
+  allEquipmentNames(state: State) {
+    return state.allEquipmentNames;
+  },
+  localEquipmentNames(state: State) {
+    return state.localEquipment;
   }
 };
 

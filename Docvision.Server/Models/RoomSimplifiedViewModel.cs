@@ -6,6 +6,6 @@
 
 		public string Name { get; set; }
 
-		public int EquipmentsCount { get; set; }
+		public int EquipmentCount { get; set; }
 	}
 }

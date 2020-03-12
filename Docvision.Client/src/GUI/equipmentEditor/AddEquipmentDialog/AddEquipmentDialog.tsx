@@ -11,7 +11,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import createStyles from "./styles";
-import { EquipmentsCountInfo } from "../AddEquipmentField/props";
+import EquipmentSimplified from "../models/equipmentSimplified";
 
 const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
   IAddEquipmentDialogCallProps> = props => {
@@ -33,9 +33,9 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
 
     setDialogValue({ ...dialogValue, name: value });
 
-    if (value.length < 1 || value.length > EquipmentsCountInfo.maxNameLength) {
+    if (value.length < 1 || value.length > EquipmentSimplified.maxNameLength) {
       setNameFieldErrorMessage(
-        `Строка должна иметь длину от 1 до ${EquipmentsCountInfo.maxNameLength} символв включительно.`
+        `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`
       );
     } else {
       setNameFieldErrorMessage("");
@@ -74,7 +74,7 @@ const AddEquipmentDialog: FunctionComponent<IAddEqiupmentDialogProps &
                 ...dialogValue,
                 count: Number(event.target.value)
               })
-            } //TODO: VALIDATE!
+            }
             label="Count"
             type="number"
           />

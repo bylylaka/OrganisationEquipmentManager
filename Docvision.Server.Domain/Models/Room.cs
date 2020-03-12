@@ -10,6 +10,6 @@
 
 		public int BuildingId { get; set; }
 
-		public List<Equipment> Equipments { get; set; }
+		public List<Equipment> Equipment { get; set; }
 	}
 }

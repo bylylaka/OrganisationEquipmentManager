@@ -5,45 +5,43 @@ import React, {
   useCallback
 } from "react";
 import TextField from "@material-ui/core/TextField";
-import {
-  IAddEquipmentFieldProps,
-  IAddEquipmentFieldCallProps,
-  EquipmentsCountInfo
-} from "./props";
+import { IAddEquipmentFieldProps, IAddEquipmentFieldCallProps } from "./props";
 import Grid from "@material-ui/core/Grid";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import AddEquipmentDialog from "../AddEquipmentDialog/AddEquipmentDialog";
 import Typography from "@material-ui/core/Typography";
 import createStyles from "./styles";
 import Button from "@material-ui/core/Button";
+import EquipmentSimplified from "../models/equipmentSimplified";
 
 const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   IAddEquipmentFieldCallProps> = props => {
   const {
-    equipmentsCountInfo,
-    loadEquipmentsCountInfo,
+    allEquipmentNames,
+    localEquipment,
     createEquipment,
-    equipmentCreationInProgress
+    equipmentCreationInProgress,
+    roomId
   } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [open, toggleOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState(
-    new EquipmentsCountInfo("", 0)
+    new EquipmentSimplified("", 0)
   );
   const [errorMessage, setErrorMessage] = useState("");
 
   const classes = createStyles();
 
   useEffect(() => {
-    loadEquipmentsCountInfo();
-  }, []);
+    setInputValue("");
+  }, [roomId]);
 
   const handleClose = () => {
     if (equipmentCreationInProgress) {
       return;
     }
-    setDialogValue(new EquipmentsCountInfo("", 0));
+    setDialogValue(new EquipmentSimplified("", 0));
     toggleOpen(false);
   };
 
@@ -55,10 +53,12 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   };
 
   const handleSubmitClick = () => {
+    if (Boolean(errorMessage)) {
+      return;
+    }
     toggleOpen(true);
-    let dialogValue = new EquipmentsCountInfo(inputValue, 1);
+    let dialogValue = new EquipmentSimplified(inputValue, 1);
     setDialogValue(dialogValue);
-    return;
   };
 
   const onInputChange = (
@@ -67,9 +67,9 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     reason: "input" | "reset" | "clear"
   ) => {
     setInputValue(value);
-    if (value.length < 1 || value.length > EquipmentsCountInfo.maxNameLength) {
+    if (value.length < 1 || value.length > EquipmentSimplified.maxNameLength) {
       setErrorMessage(
-        `Строка должна иметь длину от 1 до ${EquipmentsCountInfo.maxNameLength} символв включительно.`
+        `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`
       );
     } else {
       setErrorMessage("");
@@ -80,12 +80,16 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     return option;
   };
 
-  const generateOptions = (): string[] =>
+  const generateOptions = (): string[] => {
     //TODO: remove current page equipment
-    equipmentsCountInfo.filter(info => info.count > 0).map(info => info.name);
+    //TODO: add validator for already existed in this room equipments
+    let locaEquipmentNames = localEquipment.map(e => e.name);
+    return allEquipmentNames.map(info => info.name);
+  };
 
   const memoizedGenerateOptions = useCallback(() => generateOptions(), [
-    equipmentsCountInfo
+    allEquipmentNames,
+    localEquipmentNames
   ]);
 
   return (
@@ -93,8 +97,9 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
       <Typography className={classes.tite}>
         Добавить новое оборудование
       </Typography>
-      <Grid item container alignItems="center">
+      <Grid item container>
         <Autocomplete
+          inputValue={inputValue}
           onInputChange={onInputChange}
           options={memoizedGenerateOptions()}
           getOptionLabel={getOptionLabel}
@@ -104,7 +109,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
             <TextField
               {...params}
               error={Boolean(errorMessage)}
-              helperText={errorMessage}
+              helperText={errorMessage || " "}
               placeholder="Введите название оборудования"
               label="Наименование оборудования"
               variant="outlined"

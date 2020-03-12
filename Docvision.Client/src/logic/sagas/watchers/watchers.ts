@@ -9,10 +9,17 @@ function* getOrganisationStructureWatcher() {
   );
 }
 
-function* getEquipmentCountInfoWatcher() {
+function* getAllEquipmentNamesWatcher() {
   yield takeLatest(
-    ActionTypes.GET_EQUIPMENT_COUNT_INFO,
-    Sagas.getEquipmentCountInfoSaga
+    ActionTypes.GET_ALL_EQUIPMENT_NAMES,
+    Sagas.getAllEquipmentNamesSaga
+  );
+}
+
+function* getLocalEquipmentWatcher() {
+  yield takeLatest(
+    ActionTypes.GET_LOCAL_EQUIPMENT,
+    Sagas.getLocalEquipmentSaga
   );
 }
 
@@ -23,7 +30,8 @@ function* createEquipmentWatcher() {
 export default function* watchers() {
   yield all([
     getOrganisationStructureWatcher(),
-    getEquipmentCountInfoWatcher(),
+    getAllEquipmentNamesWatcher(),
+    getLocalEquipmentWatcher(),
     createEquipmentWatcher()
   ]);
 }

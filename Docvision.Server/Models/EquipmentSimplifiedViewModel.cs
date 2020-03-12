@@ -2,7 +2,7 @@
 
 namespace Docvision.Server.WebApi.Models
 {
-	public class EquipmentsCountInfoViewModel
+	public class EquipmentSimplifiedViewModel
 	{
 		[StringLength(100, MinimumLength = 1)]
 		public string Name { get; set; }

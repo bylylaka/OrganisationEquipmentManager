@@ -4,6 +4,7 @@ import { IEquipmentEditorProps, IEquipmentEditorCallProps } from "./props";
 import EquipmentEditor from "./EquipmentEditor";
 import IOrganisationNavigationProps from "../shared/OrganisationNavigation";
 import { Dispatch } from "redux";
+import Actions from "../../logic/actions/actions";
 
 type ContainerProps = IOrganisationNavigationProps;
 
@@ -15,7 +16,9 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): IEquipmentEditorCallProps => {
-  return {};
+  return {
+    loadAllEquipmentNames: () => dispatch(Actions.getAllEquipmentNames())
+  };
 };
 
 const EquipmentEditorContainer = connect(

@@ -72,7 +72,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
           key={`${building.id}`}
           label={generateLabel(
             building.name,
-            building.rooms.some(r => Boolean(r.equipmentsCount))
+            building.rooms.some(r => Boolean(r.equipmentCount))
           )}
           collapseIcon={
             <ExpandMoreIcon onClick={() => handleToggle(building.id)} />
@@ -91,7 +91,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
       <TreeItem
         nodeId={`${building.id}-${room.id}`}
         key={`${building.id}-${room.id}`}
-        label={generateLabel(room.name, Boolean(room.equipmentsCount))}
+        label={generateLabel(room.name, Boolean(room.equipmentCount))}
       />
     ));
 

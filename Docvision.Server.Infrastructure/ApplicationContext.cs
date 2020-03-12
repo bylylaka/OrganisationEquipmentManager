@@ -52,8 +52,11 @@
 				.ValueGeneratedOnAdd();
 
 			modelBuilder.Entity<Equipment>()
+				.Property(e => e.Count);
+
+			modelBuilder.Entity<Equipment>()
 				.HasOne<Room>()
-				.WithMany(b => b.Equipments)
+				.WithMany(b => b.Equipment)
 				.HasForeignKey(r => r.RoomId)
 				.OnDelete(DeleteBehavior.Cascade);
 		}

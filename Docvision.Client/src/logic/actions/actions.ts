@@ -1,7 +1,7 @@
 import ActionTypes from "../actionTypes/actionTypes";
-import { EquipmentsCountInfo } from "../../GUI/equipmentEditor/AddEquipmentField/props";
 import { AppSnackbarMessage } from "../../GUI/shared/AppSnackbar/props";
 import BuildingSimplified from "../../GUI/menu/models/buildingSimplified";
+import EquipmentSimplified from "../../GUI/equipmentEditor/models/equipmentSimplified";
 
 const Actions = {
   //store actions
@@ -11,10 +11,17 @@ const Actions = {
       structure
     };
   },
-  setEquipmentsCountInfo(equipmentsCountInfo: EquipmentsCountInfo[]) {
+  setAllEquipmentNames(allEquipmentNames: EquipmentSimplified[]) {
     return {
-      type: ActionTypes.SET_EQUIPMENTS_COUNT_INFO,
-      equipmentsCountInfo
+      type: ActionTypes.SET_ALL_EQUIPMENT_NAMES,
+      allEquipmentNames
+    };
+  },
+
+  setLocalEquipments(localEquipment: EquipmentSimplified[]) {
+    return {
+      type: ActionTypes.SET_LOCAL_EQUIPMENT,
+      localEquipment
     };
   },
   setAppSnackbarMessage(message: AppSnackbarMessage) {
@@ -36,12 +43,19 @@ const Actions = {
       type: ActionTypes.GET_ORGANISATION_STRUCTURE
     };
   },
-  getEquipmentCountInfo() {
+  getAllEquipmentNames() {
     return {
-      type: ActionTypes.GET_EQUIPMENT_COUNT_INFO
+      type: ActionTypes.GET_ALL_EQUIPMENT_NAMES
     };
   },
-  createEquipment(roomId: number, equipment: EquipmentsCountInfo) {
+  getLocalEquipment(buildingId: number, roomId: number) {
+    return {
+      type: ActionTypes.GET_LOCAL_EQUIPMENT,
+      buildingId,
+      roomId
+    };
+  },
+  createEquipment(roomId: number, equipment: EquipmentSimplified) {
     return {
       type: ActionTypes.CREATE_EQUIPMENT,
       roomId,

@@ -1,13 +1,13 @@
-import { EquipmentsCountInfo } from "../AddEquipmentField/props";
+import EquipmentSimplified from "../models/equipmentSimplified";
 
 export interface IAddEqiupmentDialogProps {
   isOpen: boolean;
-  dialogValue: EquipmentsCountInfo;
+  dialogValue: EquipmentSimplified;
   submitting: boolean;
 }
 
 export interface IAddEquipmentDialogCallProps {
   handleClose: () => void;
   handleSubmit: (event: React.ChangeEvent<{}>) => void;
-  setDialogValue: (dialogValue: EquipmentsCountInfo) => void;
+  setDialogValue: (dialogValue: EquipmentSimplified) => void;
 }

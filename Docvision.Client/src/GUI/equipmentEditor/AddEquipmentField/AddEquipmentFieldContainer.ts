@@ -1,20 +1,18 @@
 import { connect } from "react-redux";
 import { State } from "../../../logic/reducers/reducer";
 import AddEquipmentField from "./AddEquipmentField";
-import {
-  IAddEquipmentFieldProps,
-  IAddEquipmentFieldCallProps,
-  EquipmentsCountInfo
-} from "./props";
+import { IAddEquipmentFieldProps, IAddEquipmentFieldCallProps } from "./props";
 import Actions from "../../../logic/actions/actions";
 import { Dispatch } from "redux";
 import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
+import EquipmentSimplified from "../models/equipmentSimplified";
 
 type ContainerProps = Pick<IOrganisationNavigationProps, "roomId">;
 
 const mapStateToProps = (state: State): IAddEquipmentFieldProps => {
   return {
-    equipmentsCountInfo: state.equipmentsCountInfo,
+    allEquipmentNames: state.allEquipmentNames,
+    localEquipment: state.localEquipment,
     equipmentCreationInProgress: state.equipmentCreationInProgress
   };
 };
@@ -24,8 +22,7 @@ const mapDispatchToProps = (
   ownProps: ContainerProps
 ): IAddEquipmentFieldCallProps => {
   return {
-    loadEquipmentsCountInfo: () => dispatch(Actions.getEquipmentCountInfo()),
-    createEquipment: (equipment: EquipmentsCountInfo) =>
+    createEquipment: (equipment: EquipmentSimplified) =>
       dispatch(Actions.createEquipment(ownProps.roomId, equipment))
   };
 };

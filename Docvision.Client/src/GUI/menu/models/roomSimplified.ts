@@ -1,7 +1,7 @@
 interface RoomSimplified {
   id: number;
   name: string;
-  equipmentsCount: number;
+  equipmentCount: number;
 }
 
 export default RoomSimplified;

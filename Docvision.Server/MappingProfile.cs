@@ -14,10 +14,10 @@
 				opt => opt.MapFrom(b => b.Rooms));
 
 			CreateMap<Room, RoomSimplifiedViewModel>()
-				.ForMember(rs => rs.EquipmentsCount,
-				opt => opt.MapFrom(r => r.Equipments.Sum(e => e.Count)));
+				.ForMember(rs => rs.EquipmentCount,
+				opt => opt.MapFrom(r => r.Equipment.Sum(e => e.Count)));
 
-			CreateMap<EquipmentsCountInfoViewModel, Equipment>()
+			CreateMap<EquipmentSimplifiedViewModel, Equipment>()
 				.ReverseMap();
 		}
 	}
