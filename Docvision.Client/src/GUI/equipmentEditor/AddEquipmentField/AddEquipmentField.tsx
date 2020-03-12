@@ -87,7 +87,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
   const generateOptions = (): string[] => {
     let locaEquipmentNames = localEquipment.map(e => e.name);
     let allEquipmentNames = allEquipment.map(e => e.name);
-    return allEquipmentNames.filter(e => locaEquipmentNames.indexOf(e) == -1);
+    return allEquipmentNames.filter(e => locaEquipmentNames.indexOf(e) === -1);
   };
 
   const memoizedGenerateOptions = useCallback(() => generateOptions(), [
