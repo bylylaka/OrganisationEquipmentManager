@@ -9,10 +9,11 @@ import Button from "@material-ui/core/Button";
 import ClearIcon from "@material-ui/icons/Clear";
 import Tooltip from "@material-ui/core/Tooltip";
 import EquipmentSimplified from "../../models/equipmentSimplified";
+import IconButton from "@material-ui/core/IconButton";
 
 const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
   IEquipmentListItemCallProps> = props => {
-  const { equipment, roomId } = props;
+  const { equipment, roomId, removeEquipment } = props;
 
   const classes = createStyles();
 
@@ -25,6 +26,10 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
   const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setCount(Number(value));
+  };
+
+  const handleRemove = () => {
+    removeEquipment(equipment);
   };
 
   return (
@@ -66,7 +71,9 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
             Сохранить
           </Button>
           <Tooltip title="Удалить">
-            <ClearIcon color="error" />
+            <IconButton size="small">
+              <ClearIcon color="error" onClick={handleRemove} />
+            </IconButton>
           </Tooltip>
         </Grid>
       </Grid>

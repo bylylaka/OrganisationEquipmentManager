@@ -19,7 +19,10 @@ const EquipmentEditor: FunctionComponent<IEquipmentEditorProps &
   return (
     <Grid>
       {Boolean(roomId) && (
-        <AddEquipmentFieldContainer roomId={roomId as number} />
+        <AddEquipmentFieldContainer
+          buildingId={buildingId}
+          roomId={roomId as number}
+        />
       )}
       {Boolean(buildingId) && (
         <EquipmentListContainer buildingId={buildingId} roomId={roomId} />

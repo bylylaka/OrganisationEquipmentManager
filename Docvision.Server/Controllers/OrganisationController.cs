@@ -10,7 +10,7 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 
-	[Route("api/[controller]/[action]")]
+	[Route("api/[controller]")]
 	public class OrganisationController : Controller
 	{
 		private readonly IOrganisationService _organisationService;
@@ -25,8 +25,9 @@
 			_mapper = mapper;
 		}
 
+		[Route("structure")]
 		[HttpGet]
-		public async Task<IActionResult> Structure()
+		public async Task<IActionResult> GetStructure()
 		{
 			var organisationStructure = await _organisationService.GetOrganisationStructure();
 			var organisationSimplifiedStructure = organisationStructure
@@ -36,6 +37,7 @@
 			return Ok(organisationSimplifiedStructure);
 		}
 
+		[Route("allEquipment")]
 		[HttpGet]
 		public async Task<IActionResult> AllEquipment()
 		{
@@ -53,9 +55,9 @@
 			return Ok(equipmentInfo);
 		}
 
-		[Route("{buildingId}/{roomId?}")]
+		[Route("localEquipment/{buildingId}/{roomId?}")]
 		[HttpGet]
-		public async Task<IActionResult> LocalEquipment(
+		public async Task<IActionResult> GetLocalEquipment(
 			[FromRoute] int buildingId,
 			[FromRoute] int? roomId)
 		{
@@ -84,9 +86,9 @@
 			return Ok(simplifiedEquipment);
 		}
 
-		[Route("{roomId}")]
+		[Route("equipment/{roomId}")]
 		[HttpPost]
-		public async Task<IActionResult> Equipment(
+		public async Task<IActionResult> AddEquipment(
 			[FromRoute] int roomId,
 			[FromBody] EquipmentSimplifiedViewModel model)
 		{
@@ -101,6 +103,18 @@
 			var newEquipment = await _organisationService.AddEquipment(equipment);
 			var newEquipmentCountInfo = _mapper.Map<EquipmentSimplifiedViewModel>(model);
 			return Ok(newEquipmentCountInfo);
+		}
+
+		[Route("equipment/{roomId}")]
+		[HttpDelete]
+		public async Task<IActionResult> RemoveEquipment(
+			[FromRoute] int roomId,
+			[FromBody] EquipmentSimplifiedViewModel model)
+		{
+			var equipment = _mapper.Map<Equipment>(model);
+			equipment.RoomId = roomId;
+			await _organisationService.RemoveEquipment(equipment);
+			return NoContent();
 		}
 	}
 }

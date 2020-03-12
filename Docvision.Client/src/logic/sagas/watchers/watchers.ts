@@ -24,11 +24,16 @@ function* createEquipmentWatcher() {
   yield takeLatest(ActionTypes.CREATE_EQUIPMENT, Sagas.createEquipmentSaga);
 }
 
+function* deleteEquipmentWatcher() {
+  yield takeLatest(ActionTypes.DELETE_EQUIPMENT, Sagas.deleteEquipmentSaga);
+}
+
 export default function* watchers() {
   yield all([
     getOrganisationStructureWatcher(),
     getallEquipmentWatcher(),
     getLocalEquipmentWatcher(),
-    createEquipmentWatcher()
+    createEquipmentWatcher(),
+    deleteEquipmentWatcher()
   ]);
 }

@@ -21,5 +21,7 @@
 		Task<List<Equipment>> GetRoomEquipment(int roomId);
 
 		Task<Equipment> AddEquipment(Equipment equipment);
+
+		Task RemoveEquipment(Equipment equipment);
 	}
 }

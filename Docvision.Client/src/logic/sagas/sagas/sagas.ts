@@ -6,6 +6,7 @@ import BuildingSimplified from "../../../GUI/menu/models/buildingSimplified";
 import Selectors from "../selectors/selectors";
 import { AppSnackbarMessage } from "../../../GUI/shared/AppSnackbar/props";
 import EquipmentSimplified from "../../../GUI/equipmentEditor/models/equipmentSimplified";
+import RoomSimplified from "../../../GUI/menu/models/roomSimplified";
 
 export const Sagas = {
   *getOrganisationStructureSaga() {
@@ -42,6 +43,12 @@ export const Sagas = {
 
       yield call(Sagas.addToAllEuipment, response.data);
       yield call(Sagas.addToLocalEuipment, response.data);
+      yield call(
+        Sagas.addEquipmentToOrganisationStructure,
+        action.buildingId,
+        action.roomId,
+        action.equipment
+      );
 
       yield put(
         Actions.setAppSnackbarMessage(
@@ -55,7 +62,7 @@ export const Sagas = {
   },
 
   *addToAllEuipment(equipment: EquipmentSimplified) {
-    const allEquipment: EquipmentSimplified[] = yield select(
+    let allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
     if (allEquipment.some(e => e.name == equipment.name)) {
@@ -68,10 +75,86 @@ export const Sagas = {
   },
 
   *addToLocalEuipment(equipment: EquipmentSimplified) {
-    const localEquipment: EquipmentSimplified[] = yield select(
+    let localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipmentNames
     );
     localEquipment.push(equipment);
     yield put(Actions.setLocalEquipments(localEquipment));
+  },
+
+  *addEquipmentToOrganisationStructure(
+    buildingId: number,
+    roomId: number,
+    equipment: EquipmentSimplified
+  ) {
+    let buildingsStructure: BuildingSimplified[] = yield select(
+      Selectors.organisationStructure
+    );
+    let roomInStructure = buildingsStructure
+      .find(b => b.id == buildingId)
+      ?.rooms.find(r => r.id == roomId);
+
+    (roomInStructure as RoomSimplified).equipmentCount += equipment.count;
+
+    yield put(Actions.setOrganisationStructure(buildingsStructure));
+  },
+
+  *deleteEquipmentSaga(action: ReturnType<typeof Actions.deleteEquipment>) {
+    yield call(Apis.deleteEquipment, action.roomId, action.equipment);
+
+    yield call(Sagas.removeFromAllEuipment, action.equipment);
+    yield call(Sagas.removeFromLocalEuipment, action.equipment);
+    yield call(
+      Sagas.removeEquipmentFromOrganisationStructure,
+      action.buildingId,
+      action.roomId,
+      action.equipment
+    );
+
+    yield put(
+      Actions.setAppSnackbarMessage(
+        new AppSnackbarMessage("Оборудование успешно удалено.", "success")
+      )
+    );
+  },
+
+  *removeFromAllEuipment(equipment: EquipmentSimplified) {
+    let allEquipment: EquipmentSimplified[] = yield select(
+      Selectors.allEquipment
+    );
+    const foundEquipment = allEquipment.find(e => e.name == equipment.name);
+
+    if (Number(foundEquipment?.count) > equipment.count) {
+      (foundEquipment as EquipmentSimplified).count -= equipment.count;
+    } else {
+      allEquipment = allEquipment.filter(e => e.name != equipment.name);
+    }
+
+    yield put(Actions.setallEquipment(allEquipment));
+  },
+
+  *removeFromLocalEuipment(equipment: EquipmentSimplified) {
+    let localEquipment: EquipmentSimplified[] = yield select(
+      Selectors.localEquipmentNames
+    );
+    localEquipment = localEquipment.filter(e => e.name != equipment.name);
+    yield put(Actions.setLocalEquipments(localEquipment));
+  },
+
+  *removeEquipmentFromOrganisationStructure(
+    buildingId: number,
+    roomId: number,
+    equipment: EquipmentSimplified
+  ) {
+    let buildingsStructure: BuildingSimplified[] = yield select(
+      Selectors.organisationStructure
+    );
+    let roomInStructure = buildingsStructure
+      .find(b => b.id == buildingId)
+      ?.rooms.find(r => r.id == roomId);
+
+    (roomInStructure as RoomSimplified).equipmentCount -= equipment.count;
+
+    yield put(Actions.setOrganisationStructure(buildingsStructure));
   }
 };

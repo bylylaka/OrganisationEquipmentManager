@@ -29,7 +29,7 @@ const AppSnackbar: FunctionComponent<IAppSnackbarProps> = props => {
         horizontal: "center"
       }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={3000}
       onClose={handleClose}
     >
       <MuiAlert variant="filled" severity={message.type}>

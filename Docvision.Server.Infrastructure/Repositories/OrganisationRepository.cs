@@ -67,5 +67,11 @@
 
 			return newEquipment.Entity;
 		}
+
+		public async Task RemoveEquipment(Equipment equipment)
+		{
+			_dbContext.Equipment.Remove(equipment);
+			await _dbContext.SaveChangesAsync();
+		}
 	}
 }

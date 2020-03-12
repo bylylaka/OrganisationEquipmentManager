@@ -55,9 +55,26 @@ const Actions = {
       roomId
     };
   },
-  createEquipment(roomId: number, equipment: EquipmentSimplified) {
+  createEquipment(
+    buildingId: number,
+    roomId: number,
+    equipment: EquipmentSimplified
+  ) {
     return {
       type: ActionTypes.CREATE_EQUIPMENT,
+      buildingId,
+      roomId,
+      equipment
+    };
+  },
+  deleteEquipment(
+    buildingId: number,
+    roomId: number,
+    equipment: EquipmentSimplified
+  ) {
+    return {
+      type: ActionTypes.DELETE_EQUIPMENT,
+      buildingId,
       roomId,
       equipment
     };

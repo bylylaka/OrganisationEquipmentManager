@@ -13,7 +13,7 @@ const mapStateToProps = (
   ownProps: ContainerProps
 ): Omit<IMenuProps, keyof ContainerProps> => {
   return {
-    structure: state.organisationStructure
+    structure: [...state.organisationStructure]
   };
 };
 

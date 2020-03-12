@@ -18,6 +18,14 @@ export const Apis = {
       `${Axios.defaults.baseURL}/organisation/equipment/${roomId}`,
       equipment
     );
+  },
+  deleteEquipment(roomId: number, equipment: EquipmentSimplified) {
+    return Axios.delete(
+      `${Axios.defaults.baseURL}/organisation/equipment/${roomId}`,
+      {
+        data: equipment
+      }
+    );
   }
 };
 

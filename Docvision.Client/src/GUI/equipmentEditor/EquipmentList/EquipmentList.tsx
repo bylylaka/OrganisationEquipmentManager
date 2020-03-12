@@ -6,7 +6,13 @@ import EquipmentListItem from "./EquipmentListItem/EquipmentListItem";
 
 const EquipmentList: FunctionComponent<IEquipmentListProps &
   IEquipmentListCallProps> = props => {
-  const { getEquipment, equipment, buildingId, roomId } = props;
+  const {
+    equipment,
+    buildingId,
+    roomId,
+    getEquipment,
+    removeEquipment
+  } = props;
 
   const classes = createStyles();
 
@@ -17,7 +23,11 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
   return (
     <List className={classes.root}>
       {equipment.map(e => (
-        <EquipmentListItem equipment={e} roomId={roomId} />
+        <EquipmentListItem
+          equipment={e}
+          roomId={roomId}
+          removeEquipment={removeEquipment}
+        />
       ))}
     </List>
   );

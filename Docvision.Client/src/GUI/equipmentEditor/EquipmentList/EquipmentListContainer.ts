@@ -4,6 +4,7 @@ import { IEquipmentListProps, IEquipmentListCallProps } from "./props";
 import EquipmentList from "./EquipmentList";
 import { Dispatch } from "redux";
 import Actions from "../../../logic/actions/actions";
+import EquipmentSimplified from "../models/equipmentSimplified";
 
 type ContainerProps = Pick<IEquipmentListProps, "buildingId" | "roomId">;
 
@@ -22,7 +23,11 @@ const mapDispatchToProps = (
 ): IEquipmentListCallProps => {
   return {
     getEquipment: () =>
-      dispatch(Actions.getLocalEquipment(ownProps.buildingId, ownProps.roomId))
+      dispatch(Actions.getLocalEquipment(ownProps.buildingId, ownProps.roomId)),
+    removeEquipment: (equipment: EquipmentSimplified) =>
+      dispatch(
+        Actions.deleteEquipment(ownProps.buildingId, ownProps.roomId, equipment)
+      )
   };
 };
 

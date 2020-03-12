@@ -7,7 +7,10 @@ import { Dispatch } from "redux";
 import IOrganisationNavigationProps from "../../shared/OrganisationNavigation";
 import EquipmentSimplified from "../models/equipmentSimplified";
 
-type ContainerProps = Pick<IOrganisationNavigationProps, "roomId">;
+type ContainerProps = Pick<
+  IOrganisationNavigationProps,
+  "roomId" | "buildingId"
+>;
 
 const mapStateToProps = (state: State): IAddEquipmentFieldProps => {
   return {
@@ -23,7 +26,9 @@ const mapDispatchToProps = (
 ): IAddEquipmentFieldCallProps => {
   return {
     createEquipment: (equipment: EquipmentSimplified) =>
-      dispatch(Actions.createEquipment(ownProps.roomId, equipment))
+      dispatch(
+        Actions.createEquipment(ownProps.buildingId, ownProps.roomId, equipment)
+      )
   };
 };
 

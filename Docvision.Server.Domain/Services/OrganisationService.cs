@@ -75,5 +75,21 @@
 			}
 			return await _organisationRepository.AddEquipment(equipment);
 		}
+
+		public async Task RemoveEquipment(Equipment equipment)
+		{
+			var room = await GetRoomById(equipment.RoomId);
+			if (room == null)
+			{
+				throw new BadRequestException();
+			}
+
+			var existedEquipment = await GetEquipmentByNameAndRoom(equipment.Name, equipment.RoomId);
+			if (existedEquipment == null)
+			{
+				throw new BadRequestException();
+			}
+			await _organisationRepository.RemoveEquipment(existedEquipment);
+		}
 	}
 }

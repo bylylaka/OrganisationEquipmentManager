@@ -7,4 +7,5 @@ export interface IEquipmentListProps extends IOrganisationNavigationProps {
 
 export interface IEquipmentListCallProps {
   getEquipment: () => void;
+  removeEquipment: (equipment: EquipmentSimplified) => void;
 }

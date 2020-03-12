@@ -5,4 +5,6 @@ export interface IEquipmentListItemProps {
   roomId: number;
 }
 
-export interface IEquipmentListItemCallProps {}
+export interface IEquipmentListItemCallProps {
+  removeEquipment: (equipment: EquipmentSimplified) => void;
+}
