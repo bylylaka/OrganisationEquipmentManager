@@ -18,9 +18,11 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
   const classes = createStyles();
 
   const [count, setCount] = useState(equipment.count);
+  const [updatingInProgress, setUpdatingInProgress] = useState(false);
 
   useEffect(() => {
     setCount(equipment.count);
+    setUpdatingInProgress(false);
   }, [equipment]);
 
   const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,17 +31,18 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
   };
 
   const handleRemove = () => {
+    setUpdatingInProgress(true);
     removeEquipment(equipment);
   };
 
   const handeSubmit = (event: React.ChangeEvent<{}>) => {
     event.preventDefault();
+    setUpdatingInProgress(true);
     let newEquipment = equipment;
     newEquipment.count = count;
     updateEquipmentCount(equipment);
   };
 
-  //disable X button when deleting in progress
   return (
     <form onSubmit={handeSubmit}>
       <Grid container justify="space-between" alignItems="center" wrap="nowrap">
@@ -55,7 +58,7 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
         >
           <TextField
             required
-            disabled={isNaN(roomId)}
+            disabled={isNaN(roomId) || updatingInProgress}
             margin="dense"
             inputProps={{ min: "1", max: EquipmentSimplified.maxCountValue }}
             value={count}
@@ -68,14 +71,17 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
               variant="contained"
               color="primary"
               className={classes.button}
-              disabled={equipment.count === count}
+              disabled={equipment.count === count || updatingInProgress}
               type="submit"
             >
               Сохранить
             </Button>
             <Tooltip title="Удалить">
               <IconButton size="small">
-                <ClearIcon color="error" onClick={handleRemove} />
+                <ClearIcon
+                  color={updatingInProgress ? "disabled" : "error"}
+                  onClick={handleRemove}
+                />
               </IconButton>
             </Tooltip>
           </span>

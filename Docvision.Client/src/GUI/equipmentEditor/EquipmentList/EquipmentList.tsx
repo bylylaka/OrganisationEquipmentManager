@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useCallback } from "react";
 import { IEquipmentListProps, IEquipmentListCallProps } from "./props";
 import createStyles from "./styles";
 import List from "@material-ui/core/List";
@@ -21,20 +21,24 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
     getEquipment();
   }, [buildingId, roomId]);
 
-  //TODO: remove replace from key
-  return (
-    <List className={classes.root} style={{ maxHeight: 820, overflow: "auto" }}>
-      {equipment.map(e => (
-        <EquipmentListItem
-          key={e.name.replace(" ", "")}
-          equipment={e}
-          roomId={roomId}
-          removeEquipment={removeEquipment}
-          updateEquipmentCount={updateEquipmentCount}
-        />
-      ))}
-    </List>
-  );
+  const renderEquipmentList = () => {
+    return equipment.map(e => (
+      <EquipmentListItem
+        key={e.name}
+        equipment={e}
+        roomId={roomId}
+        removeEquipment={removeEquipment}
+        updateEquipmentCount={updateEquipmentCount}
+      />
+    ));
+  };
+
+  const memoizedRenderEquipmentList = useCallback(() => renderEquipmentList(), [
+    equipment,
+    roomId
+  ]);
+
+  return <List className={classes.root}>{memoizedRenderEquipmentList()}</List>;
 };
 
 export default EquipmentList;

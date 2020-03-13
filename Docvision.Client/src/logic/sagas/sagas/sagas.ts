@@ -7,6 +7,7 @@ import Selectors from "../selectors/selectors";
 import { AppSnackbarMessage } from "../../../GUI/shared/AppSnackbar/props";
 import EquipmentSimplified from "../../../GUI/equipmentEditor/models/equipmentSimplified";
 import RoomSimplified from "../../../GUI/menu/models/roomSimplified";
+import deepCopy from "../../../utils/deepCopy";
 
 export const Sagas = {
   *getOrganisationStructureSaga() {
@@ -68,9 +69,7 @@ export const Sagas = {
     const allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    let allEquipmentCopy: EquipmentSimplified[] = JSON.parse(
-      JSON.stringify(allEquipment)
-    );
+    let allEquipmentCopy: EquipmentSimplified[] = deepCopy(allEquipment);
 
     if (allEquipmentCopy.some(e => e.name === equipment.name)) {
       let existedEquipment = allEquipmentCopy.find(
@@ -87,7 +86,7 @@ export const Sagas = {
     const localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    let localEquipmentCopy = JSON.parse(JSON.stringify(localEquipment));
+    let localEquipmentCopy = deepCopy(localEquipment);
     localEquipmentCopy.push(equipment);
 
     yield put(Actions.setLocalEquipments(localEquipmentCopy));
@@ -135,9 +134,7 @@ export const Sagas = {
     const allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    let allEquipmentCopy: EquipmentSimplified[] = JSON.parse(
-      JSON.stringify(allEquipment)
-    );
+    let allEquipmentCopy: EquipmentSimplified[] = deepCopy(allEquipment);
 
     (allEquipmentCopy.find(
       e => e.name === equipment.name
@@ -151,9 +148,7 @@ export const Sagas = {
     equipment: EquipmentSimplified,
     delta: number
   ) {
-    let localEquipmentsCopy: EquipmentSimplified[] = JSON.parse(
-      JSON.stringify(localEquipments)
-    );
+    let localEquipmentsCopy: EquipmentSimplified[] = deepCopy(localEquipments);
 
     (localEquipmentsCopy.find(
       e => e.name === equipment.name
@@ -185,9 +180,8 @@ export const Sagas = {
     const allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    let allEquipmentCopy: EquipmentSimplified[] = JSON.parse(
-      JSON.stringify(allEquipment)
-    );
+    let allEquipmentCopy: EquipmentSimplified[] = deepCopy(allEquipment);
+
     const foundEquipment = allEquipmentCopy.find(
       e => e.name === equipment.name
     );
@@ -220,9 +214,10 @@ export const Sagas = {
     const buildingsStructure: BuildingSimplified[] = yield select(
       Selectors.organisationStructure
     );
-    let buildingsStructureCopy: BuildingSimplified[] = JSON.parse(
-      JSON.stringify(buildingsStructure)
+    let buildingsStructureCopy: BuildingSimplified[] = deepCopy(
+      buildingsStructure
     );
+
     let roomInStructure = buildingsStructureCopy
       .find(b => b.id === buildingId)
       ?.rooms.find(r => r.id === roomId);

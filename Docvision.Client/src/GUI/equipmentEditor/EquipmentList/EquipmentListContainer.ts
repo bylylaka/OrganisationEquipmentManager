@@ -5,6 +5,7 @@ import EquipmentList from "./EquipmentList";
 import { Dispatch } from "redux";
 import Actions from "../../../logic/actions/actions";
 import EquipmentSimplified from "../models/equipmentSimplified";
+import deepCopy from "../../../utils/deepCopy";
 
 type ContainerProps = Pick<IEquipmentListProps, "buildingId" | "roomId">;
 
@@ -13,7 +14,7 @@ const mapStateToProps = (
   ownProps: ContainerProps
 ): Omit<IEquipmentListProps, keyof ContainerProps> => {
   return {
-    equipment: JSON.parse(JSON.stringify(state.localEquipment))
+    equipment: deepCopy(state.localEquipment)
   };
 };
 
