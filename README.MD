@@ -4,7 +4,6 @@ Start server using command prompt (or you can use Visual Studio instead):
 ```
 cd Docvision.Server.WebApi
 dotnet run
-Start frontend
 ```
 Start frontend
 ```
