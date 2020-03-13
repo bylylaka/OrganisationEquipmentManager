@@ -201,7 +201,7 @@ export const Sagas = {
     );
 
     let updatedEquipmentCopy = localEquipment.filter(
-      e => e.name != equipment.name
+      e => e.name !== equipment.name
     );
     yield put(Actions.setLocalEquipments(updatedEquipmentCopy));
   },

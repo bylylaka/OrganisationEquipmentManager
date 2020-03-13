@@ -9,9 +9,10 @@ export const Apis = {
     return Axios.get(`${Axios.defaults.baseURL}/organisation/allEquipment`);
   },
   getLocalEquipment(buildingId: number, roomId?: number) {
-    return Axios.get(
-      `${Axios.defaults.baseURL}/organisation/localEquipment/${buildingId}/${roomId}`
-    );
+    const url = roomId
+      ? `${Axios.defaults.baseURL}/organisation/localEquipment/${buildingId}/${roomId}`
+      : `${Axios.defaults.baseURL}/organisation/localEquipment/${buildingId}`;
+    return Axios.get(url);
   },
   createEquipment(roomId: number, equipment: EquipmentSimplified) {
     return Axios.post(

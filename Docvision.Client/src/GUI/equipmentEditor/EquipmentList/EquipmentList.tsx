@@ -3,6 +3,7 @@ import { IEquipmentListProps, IEquipmentListCallProps } from "./props";
 import createStyles from "./styles";
 import List from "@material-ui/core/List";
 import EquipmentListItem from "./EquipmentListItem/EquipmentListItem";
+import { v1 as uuid } from "uuid";
 
 const EquipmentList: FunctionComponent<IEquipmentListProps &
   IEquipmentListCallProps> = props => {
@@ -24,7 +25,7 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
   const renderEquipmentList = () => {
     return equipment.map(e => (
       <EquipmentListItem
-        key={e.name}
+        key={uuid()}
         equipment={e}
         roomId={roomId}
         removeEquipment={removeEquipment}

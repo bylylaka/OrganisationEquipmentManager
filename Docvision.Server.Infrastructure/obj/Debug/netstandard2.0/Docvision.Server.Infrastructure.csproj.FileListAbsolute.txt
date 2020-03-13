@@ -1,7 +1,6 @@
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\bin\Debug\netstandard2.0\Docvision.Server.Infrastructure.deps.json
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\bin\Debug\netstandard2.0\Docvision.Server.Infrastructure.dll
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.csprojAssemblyReference.cache
-C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.AssemblyInfo.cs
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\bin\Debug\netstandard2.0\Docvision.Server.Infrastructure.pdb
@@ -10,3 +9,4 @@ C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\bin\Debug\netstandard2.0\Docvision.Server.Domain.dll
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\bin\Debug\netstandard2.0\Docvision.Server.Domain.pdb
 C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.csproj.CopyComplete
+C:\Users\Максим\source\repos\Docvision\Docvision.Server.Infrastructure\obj\Debug\netstandard2.0\Docvision.Server.Infrastructure.csproj.CoreCompileInputs.cache

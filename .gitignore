@@ -15,9 +15,10 @@ yarn-debug.log*
 yarn-error.log*
 *.d.ts
 tsconfig.json
-
+package-lock.json
 
 #backend
+*/bin
 *.cache
 *.dll
 *.exe

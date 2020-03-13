@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useState
 } from "react";
-import Axios, { AxiosResponse } from "axios";
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -55,7 +54,7 @@ const Menu: FunctionComponent<IMenuProps & IMenuCallProps> = props => {
     let newExpandedState = [];
 
     if (expanded.includes(`${buildingId}`)) {
-      newExpandedState = expanded.filter(e => e != `${buildingId}`);
+      newExpandedState = expanded.filter(e => e !== `${buildingId}`);
     } else {
       newExpandedState = [...expanded, `${buildingId}`];
     }

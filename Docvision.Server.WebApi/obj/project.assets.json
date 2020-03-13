@@ -13523,11 +13523,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server\\Docvision.Server.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server.WebApi\\Docvision.Server.WebApi.csproj",
       "projectName": "Docvision.Server.WebApi",
-      "projectPath": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server\\Docvision.Server.WebApi.csproj",
+      "projectPath": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server.WebApi\\Docvision.Server.WebApi.csproj",
       "packagesPath": "C:\\Users\\Максим\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server\\obj\\",
+      "outputPath": "C:\\Users\\Максим\\source\\repos\\Docvision\\Docvision.Server.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

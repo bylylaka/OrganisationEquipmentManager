@@ -68,7 +68,7 @@ const AddEquipmentField: FunctionComponent<IAddEquipmentFieldProps &
     if (name.length < 1 || name.length > EquipmentSimplified.maxNameLength) {
       return `Строка должна иметь длину от 1 до ${EquipmentSimplified.maxNameLength} символв включительно.`;
     }
-    if (localEquipment.map(e => e.name).indexOf(name) != -1) {
+    if (localEquipment.map(e => e.name).indexOf(name) !== -1) {
       return "Оборудование уже содержится в этой комнате.";
     }
     return "";
