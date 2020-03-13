@@ -17,7 +17,7 @@ const Actions = {
       isLoading
     };
   },
-  setallEquipment(allEquipment: EquipmentSimplified[]) {
+  setAllEquipment(allEquipment: EquipmentSimplified[]) {
     return {
       type: ActionTypes.SET_ALL_EQUIPMENT,
       allEquipment
@@ -49,7 +49,7 @@ const Actions = {
       type: ActionTypes.GET_ORGANISATION_STRUCTURE
     };
   },
-  getallEquipment() {
+  getAllEquipment() {
     return {
       type: ActionTypes.GET_ALL_EQUIPMENT
     };

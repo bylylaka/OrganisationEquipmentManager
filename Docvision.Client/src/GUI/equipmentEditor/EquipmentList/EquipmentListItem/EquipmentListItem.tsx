@@ -41,13 +41,7 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
 
   return (
     <form onSubmit={handeSubmit}>
-      <Grid
-        container
-        key={equipment.name}
-        justify="space-between"
-        alignItems="center"
-        wrap="nowrap"
-      >
+      <Grid container justify="space-between" alignItems="center" wrap="nowrap">
         <Grid item className={classes.name}>
           <Typography noWrap>{equipment.name}</Typography>
         </Grid>

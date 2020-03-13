@@ -21,10 +21,12 @@ const EquipmentList: FunctionComponent<IEquipmentListProps &
     getEquipment();
   }, [buildingId, roomId]);
 
+  //TODO: remove replace from key
   return (
     <List className={classes.root} style={{ maxHeight: 820, overflow: "auto" }}>
       {equipment.map(e => (
         <EquipmentListItem
+          key={e.name.replace(" ", "")}
           equipment={e}
           roomId={roomId}
           removeEquipment={removeEquipment}

@@ -17,7 +17,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: Dispatch): IEquipmentEditorCallProps => {
   return {
-    loadallEquipment: () => dispatch(Actions.getallEquipment())
+    loadallEquipment: () => dispatch(Actions.getAllEquipment())
   };
 };
 
