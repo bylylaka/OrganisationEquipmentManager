@@ -39,6 +39,7 @@ const EquipmentListItem: FunctionComponent<IEquipmentListItemProps &
     updateEquipmentCount(equipment);
   };
 
+  //disable X button when deleting in progress
   return (
     <form onSubmit={handeSubmit}>
       <Grid container justify="space-between" alignItems="center" wrap="nowrap">

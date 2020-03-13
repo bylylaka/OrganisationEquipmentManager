@@ -68,7 +68,9 @@ export const Sagas = {
     const allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    let allEquipmentCopy = [...allEquipment];
+    let allEquipmentCopy: EquipmentSimplified[] = JSON.parse(
+      JSON.stringify(allEquipment)
+    );
 
     if (allEquipmentCopy.some(e => e.name === equipment.name)) {
       let existedEquipment = allEquipmentCopy.find(
@@ -85,7 +87,7 @@ export const Sagas = {
     const localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    let localEquipmentCopy = [...localEquipment];
+    let localEquipmentCopy = JSON.parse(JSON.stringify(localEquipment));
     localEquipmentCopy.push(equipment);
 
     yield put(Actions.setLocalEquipments(localEquipmentCopy));
@@ -97,8 +99,6 @@ export const Sagas = {
     const localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    // let localEquipmentCopy = [...localEquipment];
-
     const oldEquipmentCount = localEquipment.find(
       e => e.name === action.equipment.name
     )?.count;
@@ -185,7 +185,9 @@ export const Sagas = {
     const allEquipment: EquipmentSimplified[] = yield select(
       Selectors.allEquipment
     );
-    let allEquipmentCopy = [...allEquipment];
+    let allEquipmentCopy: EquipmentSimplified[] = JSON.parse(
+      JSON.stringify(allEquipment)
+    );
     const foundEquipment = allEquipmentCopy.find(
       e => e.name === equipment.name
     );
@@ -203,12 +205,11 @@ export const Sagas = {
     const localEquipment: EquipmentSimplified[] = yield select(
       Selectors.localEquipment
     );
-    let localEquipmentCopy = [...localEquipment];
 
-    localEquipmentCopy = localEquipmentCopy.filter(
+    let updatedEquipmentCopy = localEquipment.filter(
       e => e.name != equipment.name
     );
-    yield put(Actions.setLocalEquipments(localEquipmentCopy));
+    yield put(Actions.setLocalEquipments(updatedEquipmentCopy));
   },
 
   *updateEquipmentCountForOrganisationStructure(
@@ -219,11 +220,14 @@ export const Sagas = {
     const buildingsStructure: BuildingSimplified[] = yield select(
       Selectors.organisationStructure
     );
-    let buildingsStructureCopy = [...buildingsStructure];
+    let buildingsStructureCopy: BuildingSimplified[] = JSON.parse(
+      JSON.stringify(buildingsStructure)
+    );
     let roomInStructure = buildingsStructureCopy
       .find(b => b.id === buildingId)
       ?.rooms.find(r => r.id === roomId);
     (roomInStructure as RoomSimplified).equipmentCount += delta;
+
     yield put(Actions.setOrganisationStructure(buildingsStructureCopy));
   }
 };

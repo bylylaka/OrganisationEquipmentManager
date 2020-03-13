@@ -12,6 +12,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ContainerProps
 ): Omit<IMenuProps, keyof ContainerProps> => {
+  // console.log(state.organisationStructure);
   return {
     structure: [...state.organisationStructure],
     isLoading: state.setOrganisationStructureIsLoading
